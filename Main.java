@@ -47,6 +47,7 @@ public class Main {
 					case 4:
 						break;
 					default:
+						System.out.println("Number unavailable");
 						break;
 				}
 			
@@ -60,3 +61,14 @@ public class Main {
 //"\n2. "+
 //"\n3. "+
 //"\n4. "+
+
+
+pubic class Student{
+	ArrayList<Student> = new ArrayList<>();
+	
+}
+pulic class Main{
+	public static void main() {
+		ArrayList<Student> = new ArrayList<>();
+	}
+}
