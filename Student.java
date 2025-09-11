@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class Student 
 {
-	private static int count = 0;
+	private static int count = 1;
 	private String id;
 	private String firstName;
 	private String lastName;
@@ -11,9 +11,9 @@ public class Student
 	private String [] subjects = {"Programming with Java","Mathematics","English"};
 	private float avg;
 	
-	public Student(int id,String firstName,String lastName)
+	public Student(String firstName,String lastName)
 	{
-		this.id = String.format("%06d", count);
+		this.id = String.format("%08d", count);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		count++;

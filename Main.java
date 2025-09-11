@@ -1,15 +1,19 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
+	
 	public static void main(String[] args) 
 	{
 		Scanner in = new Scanner(System.in);
+		ArrayList<Student> students= new ArrayList<>(); 
+		
+		FillHelper.Go(students);
 		
 		do 
 		{
 			System.out.println( "\n=============="+
-					"\nPresse a number:"+
+					"\nPresse a number:\n"+
 				    "\n1. Manage students"+
 				    "\n2. Show / Search students"+
 				    "\n3. Input grades"+
@@ -32,8 +36,8 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-								    "\nPresse a number:"+
-								    "\n1. Create students"+
+								    "\nPresse a number:\n"+
+								    "\n1. Create student"+
 								    "\n2. Update student"+
 								    "\n3. Delete student"+
 								    "\n0. Return"+
@@ -46,7 +50,7 @@ public class Main {
 							switch(n1) 
 							{
 							case 1:
-								
+								Student.CreateStd();
 								break;
 								
 							case 2:
@@ -65,7 +69,7 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-									"\nPresse a number:"+
+									"\nPresse a number:\n"+
 									"\n1. Show all students"+
 									"\n2. Search a student"+
 									"\n0. Return"+
@@ -83,7 +87,7 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-									"\nPresse a number:"+
+									"\nPresse a number:\n"+
 									"\n1. Highest score"+
 									"\n2. Lowest score"+
 									"\n3. Class's avergage"+
