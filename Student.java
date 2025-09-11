@@ -8,7 +8,7 @@ public class Student
 	private String firstName;
 	private String lastName;
 	private Map<String , Float> grades = new HashMap<>();
-	private String [] subjects = new {"Programming with Java","Math","English"};
+	private String [] subjects = {"Programming with Java","Mathematics","English"};
 	private float avg;
 	
 	public Student(int id,String firstName,String lastName)
@@ -18,4 +18,6 @@ public class Student
 		this.lastName = lastName;
 		count++;
 	}
+	
+	
 }
