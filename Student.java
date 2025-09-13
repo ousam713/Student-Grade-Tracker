@@ -76,25 +76,7 @@ public class Student
 		}
 	}
 
-	public static Student searchStd(ArrayList<Student> students)
-	{
-		System.out.print("Enter the student's ID : ");
-		Scanner in = new Scanner(System.in);
-		String idNumber = in.next();
-		String ID_to_Search = String.format("%08d", idNumber);
-		
-		for(Student student : students) 
-		{
-			if(ID_to_Search.equals(student.getId())) 
-			{
-				return student;
-			}
-		}
-		
-		System.out.println("Student does not found!");
-		
-		return null;
-	}
+	
 	
 	public static void updateStd(ArrayList<Student> students) 
 	{
