@@ -50,15 +50,19 @@ public class Main {
 							switch(n1) 
 							{
 							case 1:
-								Student.CreateStd();
+								Student.createStd(students);
 								break;
 								
 							case 2:
-								
+								Student.updateStd(students);
 								break;
 								
 							case 3:
+								Student.deleteStd(students);
+								break;
 								
+							default:
+								System.out.println("Number unavailable");
 								break;
 								
 							}
@@ -114,3 +118,5 @@ public class Main {
 //"\n2. "+
 //"\n3. "+
 //"\n4. "+
+
+

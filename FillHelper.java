@@ -13,9 +13,6 @@ public class FillHelper {
 		arr.add(new Student("Tariq", "Nassar"));
 		arr.add(new Student("Samira", "Mansour"));
 		arr.add(new Student("Idris", "Al-Zahrani"));
-		
-		
-		
 	}
 }
 
