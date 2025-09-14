@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,22 +25,28 @@ public class StudentHelper {
 			System.out.println("there is no student in the list yet.");
 		}
 		
-		System.out.print("Enter the student's ID : ");
-		Scanner in = new Scanner(System.in);
-		String idNumber = in.next();
-		String ID_to_Search = String.format("%08d", idNumber);
-		
-		in.close();
-		
-		for(Student student : students) 
+		try 
 		{
-			if(ID_to_Search.equals(student.getId())) 
+			System.out.print("Enter the student's ID : ");
+			Scanner innerIn = new Scanner(System.in);
+			int idNumber = innerIn.nextInt();
+			String ID_to_Search = String.format("%08d", idNumber);
+			
+//			innerIn.close();
+			
+			for(Student student : students) 
 			{
-				return student;
+				if(ID_to_Search.equals(student.getId())) 
+				{
+					return student;
+				}
 			}
+			
+			System.out.println("Student does not found!");
+		}catch(NoSuchElementException e) 
+		{
+			System.out.println("Error : "+ e);
 		}
-		
-		System.out.println("Student does not found!");
 		
 		return null;
 	}

@@ -13,7 +13,7 @@ public class Main {
 		do 
 		{
 			System.out.println( "\n=============="+
-					"\nPresse a number:\n"+
+					"\nPress a number:\n"+
 				    "\n1. Manage students"+
 				    "\n2. Show / Search students"+
 				    "\n3. Input grades"+
@@ -36,7 +36,7 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-								    "\nPresse a number:\n"+
+								    "\nPress a number:\n"+
 								    "\n1. Create student"+
 								    "\n2. Update student"+
 								    "\n3. Delete student"+
@@ -73,7 +73,7 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-									"\nPresse a number:\n"+
+									"\nPress a number:\n"+
 									"\n1. Show all students"+
 									"\n2. Search a student"+
 									"\n0. Return"+
@@ -106,7 +106,7 @@ public class Main {
 						do 
 						{
 							System.out.println( "/n=============="+
-									"\nPresse a number:\n"+
+									"\nPress a number:\n"+
 									"\n1. Highest score"+
 									"\n2. Lowest score"+
 									"\n3. Class's avergage"+
