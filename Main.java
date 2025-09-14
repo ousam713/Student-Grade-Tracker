@@ -82,6 +82,21 @@ public class Main {
 							int n2 = in.nextInt();
 							
 							if(n2 == 0) break;
+							
+							switch(n2)
+							{
+								case 1 : 
+									Student.showStudents(students);
+									break;
+								case 2 : 
+									Student.showStudents(students);
+									break;
+								default : 
+									System.out.println("Number unavailable");
+									break;
+								
+							}
+							
 						}while(true);
 						break;
 					case 3:
