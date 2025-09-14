@@ -142,9 +142,14 @@ public class Student
 		}
 	}
 	
-	public static void searchStudents(ArrayList<Student> students) 
+	public static Student searchStudents(ArrayList<Student> students) 
 	{
-		StudentHelper.searchStd(students);
+		Student std = StudentHelper.searchStd(students);
+		if(std == null)
+		{
+			System.out.println("try with another ID");
+		}
+		return std;
 	}
 	
 }
