@@ -142,6 +142,10 @@ public class Student
 		}
 	}
 	
+	public static void searchStudents(ArrayList<Student> students) 
+	{
+		StudentHelper.searchStd(students);
+	}
 	
 }
 

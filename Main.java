@@ -89,7 +89,7 @@ public class Main {
 									Student.showStudents(students);
 									break;
 								case 2 : 
-									Student.showStudents(students);
+									Student.searchStudents(students);
 									break;
 								default : 
 									System.out.println("Number unavailable");
