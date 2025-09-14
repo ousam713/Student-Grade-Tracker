@@ -12,10 +12,18 @@ public class Student
 	private String id;
 	private String firstName;
 	private String lastName;
-	private Map<String , Float> grades = new HashMap<>();
 	private String [] subjects = {"Programming with Java","Mathematics","English"};
+	private Map<String , Float>  grades = new HashMap<>();
 	private float avg;
 	
+	
+	// Static initialization bloc
+	{
+        for (String subject : subjects) 
+        {
+            grades.put(subject, -1.0f); // Initialize each grade to -1 <=> the grades are not input yet
+        }
+    }
 	
 	// Constructor
 	public Student(String firstName,String lastName)
@@ -48,7 +56,7 @@ public class Student
 		this.lastName = lastName;
 	}
 	
-	public String setLastName() 
+	public String getLastName() 
 	{
 		return this.lastName;
 	}
@@ -85,7 +93,7 @@ public class Student
 		String idNumber = in.next();
 		String ID_to_Search = String.format("%08d", idNumber);
 		
-		Student student = searchStd(students);
+		Student student = StudentHelper.searchStd(students);
 		
 		
 		try
@@ -108,11 +116,30 @@ public class Student
 
 	public static void deleteStd(ArrayList<Student> students)
 	{
-		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the stuedent's id you want to delete : ");
-		String idNumber = in.next();
-		String ID_to_Search = String.format("%08d", idNumber);
-		in.close();
+		Student student = StudentHelper.searchStd(students);
+		if(student != null) 
+		{
+			try 
+			{
+				students.remove(student);
+			} catch(Exception e) 
+			{
+				System.out.println("ERROR : while trying to delete student!");
+			}
+		}
+	}
+	
+	
+	public static void showStudents(ArrayList<Student> students) 
+	{
+		for(Student student:students) 
+		{
+			System.out.println("\nStudent's ID : "+ student.getId());
+			System.out.println("\nFirst name : "+ student.getFirstName());
+			System.out.println("\nLast name : "+ student.getLastName());
+			System.out.println("\n================================\n");
+			
+		}
 	}
 	
 	

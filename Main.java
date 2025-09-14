@@ -8,7 +8,7 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		ArrayList<Student> students= new ArrayList<>(); 
 		
-		FillHelper.Go(students);
+		StudentHelper.Go(students);
 		
 		do 
 		{

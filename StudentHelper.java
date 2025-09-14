@@ -18,10 +18,18 @@ public class StudentHelper {
 	
 	public static Student searchStd(ArrayList<Student> students)
 	{
+		
+		if(students.size() == 0) 
+		{
+			System.out.println("there is no student in the list yet.");
+		}
+		
 		System.out.print("Enter the student's ID : ");
 		Scanner in = new Scanner(System.in);
 		String idNumber = in.next();
 		String ID_to_Search = String.format("%08d", idNumber);
+		
+		in.close();
 		
 		for(Student student : students) 
 		{
