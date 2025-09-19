@@ -74,8 +74,10 @@ public class MainJFrame extends JFrame {
 		manuSubPanel.setBackground(Color.CYAN);
 		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
 		
-//		JButton manageStdBtn = new JButton();
-		manuSubPanel.add(new JButton("1"));
+		ImageIcon manageStdIcon = new ImageIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png"); 
+		JButton manageStdBtn = new JButton(manageStdIcon);
+		
+		manuSubPanel.add(manageStdBtn);
 		manuSubPanel.add(new JButton("2"));
 		manuSubPanel.add(new JButton("3"));
 		manuSubPanel.add(new JButton("4"));
