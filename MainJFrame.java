@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,6 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import java.awt.Component;
+import java.awt.Dimension;
 
 public class MainJFrame extends JFrame {
 
@@ -21,7 +35,6 @@ public class MainJFrame extends JFrame {
 		
 		StudentHelper.factory(students);
 		
-
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,14 +52,35 @@ public class MainJFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainJFrame() {
+		setTitle("Student Managemnt System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(871, 707);
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		
+		contentPane.setLayout(new BorderLayout());
+		
+		JLabel imageLogo = new JLabel(new ImageIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/SMS.png"));
+		contentPane.add(imageLogo, BorderLayout.NORTH);
+		
+//		<< create JPanel : manuPanel
+		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+		
+//		<< << create JPanel : manuSubPanel
+		JPanel manuSubPanel = new JPanel();
+		manuSubPanel.setBackground(Color.CYAN);
+		
+		
+		
+		manuPanel.add(manuSubPanel, BorderLayout.CENTER);
+//		>> >> add JPanel : manuSubPanel
+		
+		contentPane.add(manuPanel, BorderLayout.CENTER);
+//		>> add JPanel : manuPanel
+		
 	}
-
 }
 
 /*
