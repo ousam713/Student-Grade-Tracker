@@ -1,5 +1,6 @@
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,8 +72,13 @@ public class MainJFrame extends JFrame {
 //		<< << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
 		manuSubPanel.setBackground(Color.CYAN);
+		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
 		
-		
+//		JButton manageStdBtn = new JButton();
+		manuSubPanel.add(new JButton("1"));
+		manuSubPanel.add(new JButton("2"));
+		manuSubPanel.add(new JButton("3"));
+		manuSubPanel.add(new JButton("4"));
 		
 		manuPanel.add(manuSubPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : manuSubPanel
