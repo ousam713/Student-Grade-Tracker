@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentHelper {
-	public static void Go(ArrayList<Student> arr) 
+	public static void factory(ArrayList<Student> arr) 
 	{
 		arr.add(new Student("Oussama","Benzzi"));
 		arr.add(new Student("Layla", "Hassan"));
