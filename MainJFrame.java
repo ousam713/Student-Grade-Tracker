@@ -34,6 +34,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel cardPanel;
+	private CardLayout cardLayout;
 
 	/**
 	 * Launch the application.
@@ -65,7 +66,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		setTitle("Student Managemnt System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(871, 707);
+		setSize(971, 807);
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
@@ -78,12 +79,13 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 //		<< create JPanel : manuPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+		manuPanel.setSize(300,300);
 		
 //		<< << create JPanel : cardPanel
-		CardLayout cardLayout = new CardLayout();
+		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
-		cardPanel.setBackground(Color.red);
-		cardPanel.setSize(300,300);
+		cardPanel.setBackground(null);
+//		cardPanel.setSize();
 		
 
 
@@ -100,64 +102,13 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		
 //		<< << << create JPanel : manuSubPanel
-		JPanel manuSubPanel = new JPanel();
-		manuSubPanel.setBackground(null);
-		manuSubPanel.setLayout(new GridLayout(2,2,50,50));
-		
-		
-		ImageIcon icon1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
-		JButton manageStdBtn = new JButton(icon1);
-		removeMarginBtn(manageStdBtn);
-		manageStdBtn.addActionListener(event->{
-			
-		});
-		
-		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
-		JButton searchStdBtn = new JButton(icon2);
-		removeMarginBtn(searchStdBtn);
-		
-		ImageIcon icon3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
-		JButton manageGradesBtn = new JButton(icon3);
-		removeMarginBtn(manageGradesBtn);
-		
-		ImageIcon icon4 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/statistic.png");
-		JButton statisticBtn = new JButton(icon4);
-		removeMarginBtn(statisticBtn);
-		
-		
-		manuSubPanel.add(manageStdBtn);
-		manuSubPanel.add(searchStdBtn);
-		manuSubPanel.add(manageGradesBtn);
-		manuSubPanel.add(statisticBtn);
-		
-		
+		JPanel manuSubPanel = createMainManuPanel();
 		cardPanel.add(manuSubPanel, "MainManu");
 //		>> >> >> add JPanel : manuSubPanel
 		
 		
 //		<< << << create JPanel : manageStdPanel
-		JPanel manageStdPanel = new JPanel();
-		manageStdPanel.setBackground(null);
-//		manageStdPanel.setLayout(new GridLayout(3,1,30,30));
-		
-		
-		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
-		JButton addStdBtn = new JButton(icon1_1);
-		removeMarginBtn(addStdBtn);
-		
-		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
-		JButton modefyStdBtn = new JButton(icon1_2);
-		removeMarginBtn(modefyStdBtn);
-		
-		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
-		JButton deleteStdBtn = new JButton(icon1_3);
-		removeMarginBtn(deleteStdBtn);
-		
-		
-		manageStdPanel.add(addStdBtn);
-		manageStdPanel.add(modefyStdBtn);
-		manageStdPanel.add(deleteStdBtn);
-		
+		JPanel manageStdPanel = createStudentManu();
 		cardPanel.add(manageStdPanel, "ManageStudentManu");
 //		>> >> >> add JPanel : manageStdPanel
 		
@@ -167,9 +118,10 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 
 		
-		
-		contentPane.add(manuPanel, BorderLayout.CENTER);
+		manuPanel.add(new JButton("get Desine"));
+		add(manuPanel, BorderLayout.CENTER);
 //		>> add JPanel : manuPanel
+		cardLayout.show(cardPanel, "MainMenu");
 		
 	}
 	
@@ -179,7 +131,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		{
 			Image originalIcon= new ImageIcon(path)
 									.getImage()
-									.getScaledInstance(185, 170, Image.SCALE_SMOOTH);
+									.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 			ImageIcon resizedIcon = new ImageIcon(originalIcon);
 			
 			return resizedIcon;
@@ -190,9 +142,14 @@ public class MainJFrame extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void removeMarginBtn(JButton btn) 
+	public void removeMarginBtn(JButton btn, ImageIcon icon) 
 	{
+		btn.setMargin(new Insets(0,0,0,0));
 		btn.setBorder(null);
+		btn.setBorderPainted(false);
+		if (icon != null) {
+	        btn.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+	    }
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
@@ -200,6 +157,72 @@ public class MainJFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private JPanel createMainManuPanel() 
+	{
+		JPanel manuSubPanel = new JPanel();
+		manuSubPanel.setBackground(null);
+		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
+		
+		
+		ImageIcon icon1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		JButton manageStdBtn = new JButton(icon1);
+		removeMarginBtn(manageStdBtn,icon1);
+		manageStdBtn.addActionListener(event->{
+			cardLayout.show(cardPanel, "ManageStudentManu");
+		});
+		
+		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		JButton searchStdBtn = new JButton(icon2);
+		removeMarginBtn(searchStdBtn,icon1);
+		
+		ImageIcon icon3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		JButton manageGradesBtn = new JButton(icon3);
+		removeMarginBtn(manageGradesBtn,icon1);
+		
+		ImageIcon icon4 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/statistic.png");
+		JButton statisticBtn = new JButton(icon4);
+		removeMarginBtn(statisticBtn,icon1);
+		
+		
+		manuSubPanel.add(manageStdBtn);
+		manuSubPanel.add(searchStdBtn);
+		manuSubPanel.add(manageGradesBtn);
+		manuSubPanel.add(statisticBtn);
+		
+		return manuSubPanel;
+	}
+	
+	private JPanel createStudentManu() 
+	{
+		JPanel manageStdPanel = new JPanel();
+		manageStdPanel.setBackground(null);
+		manageStdPanel.setLayout(new GridLayout(4,1,20,20));
+		
+		
+		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		JButton addStdBtn = new JButton(icon1_1);
+		removeMarginBtn(addStdBtn,icon1_1);
+		
+		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		JButton modefyStdBtn = new JButton(icon1_2);
+		removeMarginBtn(modefyStdBtn,icon1_1);
+		
+		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		JButton deleteStdBtn = new JButton(icon1_3);
+		removeMarginBtn(deleteStdBtn,icon1_1);
+		
+		JButton returnBtn = new JButton("Retrun back");
+		removeMarginBtn(returnBtn,null);
+		
+		
+		manageStdPanel.add(addStdBtn);
+		manageStdPanel.add(modefyStdBtn);
+		manageStdPanel.add(deleteStdBtn);
+		manageStdPanel.add(returnBtn);
+		
+		return manageStdPanel;
 	}
 }
 
