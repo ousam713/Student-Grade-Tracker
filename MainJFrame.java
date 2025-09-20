@@ -79,7 +79,8 @@ public class MainJFrame extends JFrame {
 		manuSubPanel.setBackground(Color.CYAN);
 		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
 		
-		JButton manageStdBtn = getIconBtn("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		ImageIcon icon = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		JButton manageStdBtn = new JButton(icon);
 		
 		manuSubPanel.add(manageStdBtn);
 		manuSubPanel.add(new JButton("2"));
@@ -99,7 +100,7 @@ public class MainJFrame extends JFrame {
 		
 	}
 	
-	public static JButton getIconBtn(String path) 
+	public static ImageIcon getResizedIcon(String path) 
 	{
 		try 
 		{
@@ -108,13 +109,14 @@ public class MainJFrame extends JFrame {
 									.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			ImageIcon resizedIcon = new ImageIcon(originalIcon);
 			
-			JButton iconBtn = new JButton(resizedIcon);
+//			JButton iconBtn = new JButton(resizedIcon);
 			
-			return iconBtn;
+			return resizedIcon;
 		} catch(Exception e) 
 		{
 			System.out.println("unable to lorad images");
-			return new JButton("can't load Icon");
+//			return new JButton("can't load Icon");
+			return null;
 		}
 	}
 }
