@@ -4,14 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JPanel;
 
-public class Student 
+
+public class Student extends JPanel 
 {	
 	// Instance variables 
+	private static final long serialVersionUID = 1L;
+//	private JPanel cardPanel;
 	private static int count = 1;
 	private String id;
 	private String firstName;
 	private String lastName;
+	private String email;
 	private String [] subjects = {"Programming with Java","Mathematics","English"};
 	private Map<String , Float>  grades = new HashMap<>();
 	private float avg;
@@ -31,6 +36,14 @@ public class Student
 		this.id = String.format("%08d", count);
 		this.firstName = firstName;
 		this.lastName = lastName;
+		count++;
+	}
+	public Student(String firstName,String lastName,String email)
+	{
+		this.id = String.format("%08d", count);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		count++;
 	}
 	
@@ -61,6 +74,23 @@ public class Student
 		return this.lastName;
 	}
 	
+	public void setEmail(String email) 
+	{
+		try 
+		{
+			if(!email.contains("@"));
+			this.email = email;	
+		} catch(Exception e) 
+		{
+			System.out.println("you emial format is not correct!");
+		}
+	}
+	
+	public String getEmail() 
+	{
+		return this.email;
+	}
+	
 	
 
 	// Methods
@@ -82,6 +112,20 @@ public class Student
 		} catch(Exception e){
 			System.out.println("There is an exception !");
 		}
+	}
+	
+	public static JPanel createAddStudentManu() 
+	{
+		JPanel addStdPanel = new JPanel();
+		addStdPanel.setBackground(null);
+		try 
+		{
+			Student std = new Student();
+		}catch(Exception e) 
+		{
+			
+		}
+		return null;
 	}
 
 	

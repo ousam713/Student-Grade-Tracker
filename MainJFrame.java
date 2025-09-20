@@ -35,6 +35,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JPanel cardPanel;
 	private CardLayout cardLayout;
+	private static ArrayList<Student> students = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -42,7 +43,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	public static void main(String[] args) 
 	{
 		Scanner in = new Scanner(System.in);
-		ArrayList<Student> students= new ArrayList<>(); 
+		 
 		
 		StudentHelper.factory(students);
 		
@@ -66,7 +67,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		setTitle("Student Managemnt System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(971, 807);
+		setSize(850, 610);
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
@@ -79,7 +80,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 //		<< create JPanel : manuPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-		manuPanel.setSize(300,300);
+//		manuPanel.setSize(300,300);
 		
 //		<< << create JPanel : cardPanel
 		cardLayout = new CardLayout();
@@ -113,13 +114,18 @@ public class MainJFrame extends JFrame implements ActionListener {
 //		>> >> >> add JPanel : manageStdPanel
 		
 		
+//		<< << << create JPanel : addStdPanel
+//		JPanel addStdPanel = Student.createAddStudentManu();
+//		cardPanel.add(addStdPanel, "AddStudent");
+//		>> >> >> add JPanel : addStdPanel
+		
+		
 		manuPanel.add(cardPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : cardPanel
 		
 
 		
-		manuPanel.add(new JButton("get Desine"));
-		add(manuPanel, BorderLayout.CENTER);
+		getContentPane().add(manuPanel, BorderLayout.CENTER);
 //		>> add JPanel : manuPanel
 		cardLayout.show(cardPanel, "MainMenu");
 		
@@ -131,7 +137,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		{
 			Image originalIcon= new ImageIcon(path)
 									.getImage()
-									.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+									.getScaledInstance(130, 110, Image.SCALE_SMOOTH);
 			ImageIcon resizedIcon = new ImageIcon(originalIcon);
 			
 			return resizedIcon;
@@ -144,11 +150,12 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	public void removeMarginBtn(JButton btn, ImageIcon icon) 
 	{
+		btn.setBackground(SystemColor.inactiveCaptionBorder);
 		btn.setMargin(new Insets(0,0,0,0));
 		btn.setBorder(null);
 		btn.setBorderPainted(false);
 		if (icon != null) {
-	        btn.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+	        btn.setPreferredSize(new Dimension(icon.getIconWidth()+100, icon.getIconHeight()+30));
 	    }
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
@@ -198,22 +205,28 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		JPanel manageStdPanel = new JPanel();
 		manageStdPanel.setBackground(null);
-		manageStdPanel.setLayout(new GridLayout(4,1,20,20));
+		manageStdPanel.setLayout(new GridLayout(2,2,20,20));
 		
 		
-		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/add_std.png");
 		JButton addStdBtn = new JButton(icon1_1);
 		removeMarginBtn(addStdBtn,icon1_1);
+		addStdBtn.addActionListener(e->{
+			
+		});
 		
-		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/modify_std.png");
 		JButton modefyStdBtn = new JButton(icon1_2);
 		removeMarginBtn(modefyStdBtn,icon1_1);
 		
-		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/delete_std.png");
 		JButton deleteStdBtn = new JButton(icon1_3);
 		removeMarginBtn(deleteStdBtn,icon1_1);
 		
 		JButton returnBtn = new JButton("Retrun back");
+		returnBtn.addActionListener(event->{
+			cardLayout.show(cardPanel, "MainManu");
+		});
 		removeMarginBtn(returnBtn,null);
 		
 		
@@ -224,6 +237,8 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		return manageStdPanel;
 	}
+	
+	
 }
 
 /*
