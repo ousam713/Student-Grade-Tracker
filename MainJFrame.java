@@ -108,6 +108,9 @@ public class MainJFrame extends JFrame implements ActionListener {
 		ImageIcon icon1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
 		JButton manageStdBtn = new JButton(icon1);
 		removeMarginBtn(manageStdBtn);
+		manageStdBtn.addActionListener(event->{
+			
+		});
 		
 		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
 		JButton searchStdBtn = new JButton(icon2);
@@ -128,14 +131,14 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manuSubPanel.add(statisticBtn);
 		
 		
-		cardPanel.add(manuSubPanel, BorderLayout.CENTER);
+		cardPanel.add(manuSubPanel, "MainManu");
 //		>> >> >> add JPanel : manuSubPanel
 		
 		
 //		<< << << create JPanel : manageStdPanel
 		JPanel manageStdPanel = new JPanel();
 		manageStdPanel.setBackground(null);
-		manageStdPanel.setLayout(new GridLayout(3,1,30,30));
+//		manageStdPanel.setLayout(new GridLayout(3,1,30,30));
 		
 		
 		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
@@ -155,6 +158,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manageStdPanel.add(modefyStdBtn);
 		manageStdPanel.add(deleteStdBtn);
 		
+		cardPanel.add(manageStdPanel, "ManageStudentManu");
 //		>> >> >> add JPanel : manageStdPanel
 		
 		
