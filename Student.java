@@ -96,36 +96,23 @@ public class Student extends JPanel
 	// Methods
 	public static void createStd(ArrayList<Student> students) 
 	{
-		Scanner in = new Scanner(System.in);
 		try 
 		{
-			System.out.print("enter first name : ");
-			String fName = in.nextLine();
 			
-			System.out.print("enter first name : ");
-			String lName = in.nextLine();
 			
-			in.close();
-			
-			students.add(new Student(fName, lName));			
-			
-		} catch(Exception e){
-			System.out.println("There is an exception !");
+			Student std = new Student();
+		}catch(Exception e) 
+		{
+			Student std = new Student(null,null,null);
 		}
+		return null;
 	}
 	
 	public static JPanel createAddStudentManu() 
 	{
 		JPanel addStdPanel = new JPanel();
 		addStdPanel.setBackground(null);
-		try 
-		{
-			Student std = new Student();
-		}catch(Exception e) 
-		{
-			
-		}
-		return null;
+		
 	}
 
 	
