@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -77,18 +79,29 @@ public class MainJFrame extends JFrame {
 //		<< << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
 		manuSubPanel.setBackground(Color.CYAN);
-		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
+		manuSubPanel.setLayout(new GridLayout(2,2,50,50));
 		
-		ImageIcon icon = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
-		JButton manageStdBtn = new JButton(icon);
+		
+		ImageIcon icon1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		JButton manageStdBtn = new JButton(icon1);
+		removeMarginBtn(manageStdBtn);
+		
+		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		JButton searchStdBtn = new JButton(icon2);
+		removeMarginBtn(manageStdBtn);
+		
+		ImageIcon icon3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		JButton manageGradesBtn = new JButton(icon3);
+		removeMarginBtn(manageStdBtn);
+		
+		ImageIcon icon4 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/statistic.png");
+		JButton statisticBtn = new JButton(icon4);
+		removeMarginBtn(manageStdBtn);
+		
 		
 		manuSubPanel.add(manageStdBtn);
-		manuSubPanel.add(new JButton("2"));
-		JButton button = new JButton("3");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		manuSubPanel.add(searchStdBtn);
+		
 		manuSubPanel.add(button);
 		manuSubPanel.add(new JButton("4"));
 		
@@ -100,24 +113,28 @@ public class MainJFrame extends JFrame {
 		
 	}
 	
-	public static ImageIcon getResizedIcon(String path) 
+	public ImageIcon getResizedIcon(String path) 
 	{
 		try 
 		{
 			Image originalIcon= new ImageIcon(path)
 									.getImage()
-									.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+									.getScaledInstance(150, 130, Image.SCALE_SMOOTH);
 			ImageIcon resizedIcon = new ImageIcon(originalIcon);
-			
-//			JButton iconBtn = new JButton(resizedIcon);
 			
 			return resizedIcon;
 		} catch(Exception e) 
 		{
 			System.out.println("unable to lorad images");
-//			return new JButton("can't load Icon");
 			return null;
 		}
+	}
+	
+	public void removeMarginBtn(JButton btn) 
+	{
+		btn.setMargin(new Insets(0,0,0,0));
+		btn.setBorder(null);
+		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 }
 
