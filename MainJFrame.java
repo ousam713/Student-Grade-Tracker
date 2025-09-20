@@ -78,7 +78,7 @@ public class MainJFrame extends JFrame {
 		
 //		<< << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
-		manuSubPanel.setBackground(Color.CYAN);
+		manuSubPanel.setBackground(null);
 		manuSubPanel.setLayout(new GridLayout(2,2,50,50));
 		
 		
@@ -88,22 +88,22 @@ public class MainJFrame extends JFrame {
 		
 		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
 		JButton searchStdBtn = new JButton(icon2);
-		removeMarginBtn(manageStdBtn);
+		removeMarginBtn(searchStdBtn);
 		
 		ImageIcon icon3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
 		JButton manageGradesBtn = new JButton(icon3);
-		removeMarginBtn(manageStdBtn);
+		removeMarginBtn(manageGradesBtn);
 		
 		ImageIcon icon4 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
-		removeMarginBtn(manageStdBtn);
+		removeMarginBtn(statisticBtn);
 		
 		
 		manuSubPanel.add(manageStdBtn);
 		manuSubPanel.add(searchStdBtn);
+		manuSubPanel.add(manageGradesBtn);
+		manuSubPanel.add(statisticBtn);
 		
-		manuSubPanel.add(button);
-		manuSubPanel.add(new JButton("4"));
 		
 		manuPanel.add(manuSubPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : manuSubPanel
@@ -119,7 +119,7 @@ public class MainJFrame extends JFrame {
 		{
 			Image originalIcon= new ImageIcon(path)
 									.getImage()
-									.getScaledInstance(150, 130, Image.SCALE_SMOOTH);
+									.getScaledInstance(185, 170, Image.SCALE_SMOOTH);
 			ImageIcon resizedIcon = new ImageIcon(originalIcon);
 			
 			return resizedIcon;
@@ -132,7 +132,6 @@ public class MainJFrame extends JFrame {
 	
 	public void removeMarginBtn(JButton btn) 
 	{
-		btn.setMargin(new Insets(0,0,0,0));
 		btn.setBorder(null);
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
