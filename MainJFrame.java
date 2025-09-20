@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainJFrame extends JFrame {
 
@@ -30,7 +33,8 @@ public class MainJFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		Scanner in = new Scanner(System.in);
 		ArrayList<Student> students= new ArrayList<>(); 
 		
@@ -52,7 +56,8 @@ public class MainJFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainJFrame() {
+	public MainJFrame() 
+	{
 		setTitle("Student Managemnt System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(871, 707);
@@ -74,12 +79,16 @@ public class MainJFrame extends JFrame {
 		manuSubPanel.setBackground(Color.CYAN);
 		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
 		
-		ImageIcon manageStdIcon = new ImageIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png"); 
-		JButton manageStdBtn = new JButton(manageStdIcon);
+		JButton manageStdBtn = getIconBtn("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
 		
 		manuSubPanel.add(manageStdBtn);
 		manuSubPanel.add(new JButton("2"));
-		manuSubPanel.add(new JButton("3"));
+		JButton button = new JButton("3");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		manuSubPanel.add(button);
 		manuSubPanel.add(new JButton("4"));
 		
 		manuPanel.add(manuSubPanel, BorderLayout.CENTER);
@@ -88,6 +97,25 @@ public class MainJFrame extends JFrame {
 		contentPane.add(manuPanel, BorderLayout.CENTER);
 //		>> add JPanel : manuPanel
 		
+	}
+	
+	public static JButton getIconBtn(String path) 
+	{
+		try 
+		{
+			Image originalIcon= new ImageIcon(path)
+									.getImage()
+									.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			ImageIcon resizedIcon = new ImageIcon(originalIcon);
+			
+			JButton iconBtn = new JButton(resizedIcon);
+			
+			return iconBtn;
+		} catch(Exception e) 
+		{
+			System.out.println("unable to lorad images");
+			return new JButton("can't load Icon");
+		}
 	}
 }
 
