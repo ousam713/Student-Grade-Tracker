@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -32,6 +33,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JPanel cardPanel;
 
 	/**
 	 * Launch the application.
@@ -76,7 +78,17 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 //		<< create JPanel : manuPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+		
+//		<< << create JPanel : cardPanel
+		CardLayout cardLayout = new CardLayout();
+		cardPanel = new JPanel(cardLayout);
+		cardPanel.setBackground(Color.red);
+		cardPanel.setSize(300,300);
+		
+		manuPanel.add(cardPanel, BorderLayout.CENTER);
+//		>> >> add JPanel : manuSubPanel
 
+		
 //		<< << create JPanel : manuContainerPanel
 		// TODO : add  JLayeredPanel to solve Labels problem (it must contain manuSubPanel and labelContainerPanel a JPanel that has an ABSOLUTE LM)
 		/*
@@ -86,6 +98,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		*/
 //		>> >> add JPanel : manuSubPanel
+		
 		
 //		<< << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
@@ -116,7 +129,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manuSubPanel.add(statisticBtn);
 		
 		
-		manuPanel.add(manuSubPanel, BorderLayout.CENTER);
+		cardPanel.add(manuSubPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : manuSubPanel
 		
 		contentPane.add(manuPanel, BorderLayout.CENTER);
