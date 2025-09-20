@@ -20,6 +20,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -27,7 +28,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainJFrame extends JFrame {
+public class MainJFrame extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -75,6 +76,16 @@ public class MainJFrame extends JFrame {
 		
 //		<< create JPanel : manuPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+
+//		<< << create JPanel : manuContainerPanel
+		// TODO : add  JLayeredPanel to solve Labels problem (it must contain manuSubPanel and labelContainerPanel a JPanel that has an ABSOLUTE LM)
+		/*
+		
+		JLayeredPane manuContainerPanel = new JLayeredPane();
+		manuPanel.add(manuContainerPanel, BorderLayout.CENTER); 
+		
+		*/
+//		>> >> add JPanel : manuSubPanel
 		
 //		<< << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
@@ -134,6 +145,12 @@ public class MainJFrame extends JFrame {
 	{
 		btn.setBorder(null);
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
