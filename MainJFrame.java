@@ -85,8 +85,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		cardPanel.setBackground(Color.red);
 		cardPanel.setSize(300,300);
 		
-		manuPanel.add(cardPanel, BorderLayout.CENTER);
-//		>> >> add JPanel : manuSubPanel
+
 
 		
 //		<< << create JPanel : manuContainerPanel
@@ -100,7 +99,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 //		>> >> add JPanel : manuSubPanel
 		
 		
-//		<< << create JPanel : manuSubPanel
+//		<< << << create JPanel : manuSubPanel
 		JPanel manuSubPanel = new JPanel();
 		manuSubPanel.setBackground(null);
 		manuSubPanel.setLayout(new GridLayout(2,2,50,50));
@@ -130,7 +129,40 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		
 		cardPanel.add(manuSubPanel, BorderLayout.CENTER);
-//		>> >> add JPanel : manuSubPanel
+//		>> >> >> add JPanel : manuSubPanel
+		
+		
+//		<< << << create JPanel : manageStdPanel
+		JPanel manageStdPanel = new JPanel();
+		manageStdPanel.setBackground(null);
+		manageStdPanel.setLayout(new GridLayout(3,1,30,30));
+		
+		
+		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		JButton addStdBtn = new JButton(icon1_1);
+		removeMarginBtn(addStdBtn);
+		
+		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		JButton modefyStdBtn = new JButton(icon1_2);
+		removeMarginBtn(modefyStdBtn);
+		
+		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		JButton deleteStdBtn = new JButton(icon1_3);
+		removeMarginBtn(deleteStdBtn);
+		
+		
+		manageStdPanel.add(addStdBtn);
+		manageStdPanel.add(modefyStdBtn);
+		manageStdPanel.add(deleteStdBtn);
+		
+//		>> >> >> add JPanel : manageStdPanel
+		
+		
+		manuPanel.add(cardPanel, BorderLayout.CENTER);
+//		>> >> add JPanel : cardPanel
+		
+
+		
 		
 		contentPane.add(manuPanel, BorderLayout.CENTER);
 //		>> add JPanel : manuPanel
