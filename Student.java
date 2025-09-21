@@ -1,9 +1,12 @@
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
 
@@ -94,27 +97,70 @@ public class Student extends JPanel
 	
 
 	// Methods
-	public static void createStd(ArrayList<Student> students) 
-	{
-		try 
-		{
-			
-			
-			Student std = new Student();
-		}catch(Exception e) 
-		{
-			Student std = new Student(null,null,null);
-		}
-		return null;
-	}
+//	public static void createStd(ArrayList<Student> students) 
+//	{
+//		try 
+//		{
+//			
+//			
+//			Student std = new Student();
+//		}catch(Exception e) 
+//		{
+//			Student std = new Student(null,null,null);
+//		}
+//		return null;
+//	}
+//	
+//	public static JPanel createAddStudentManu() 
+//	{
+//		JPanel addStdPanel = new JPanel();
+//		addStdPanel.setBackground(null);
+//		
+//	}
 	
-	public static JPanel createAddStudentManu() 
-	{
-		JPanel addStdPanel = new JPanel();
-		addStdPanel.setBackground(null);
-		
-	}
-
+				// inner class 
+				class AddStudent extends JPanel
+				{
+					private JPanel cardPanel;
+					private JLabel firstNameLabel;
+					private JLabel lastNameLabel;
+					private JLabel emailLabel;
+					private JList branchList; 
+					
+			//		static 
+			//		{
+			//			
+			//			
+			//		}
+					
+					public AddStudent() 
+					{
+						cardPanel = new JPanel();
+						cardPanel.setBackground(null);
+						cardPanel.setLayout(new GridLayout(4,2,20,20));
+						firstNameLabel= new JLabel("First name");
+						lastNameLabel = new JLabel("Last name");
+						emailLabel = new JLabel("Email");
+						branchList = new JList<String>();
+						
+						cardPanel.add(firstNameLabel);
+						cardPanel.add(lastNameLabel);
+						cardPanel.add(emailLabel);
+						cardPanel.add(branchList);
+						
+					}
+					
+					public JPanel getAddJPanel() 
+					{
+						return this;
+					}
+					
+					public static void createAddStudentPanel() 
+					{
+						
+					} 
+				}
+	
 	
 	
 	public static void updateStd(ArrayList<Student> students) 

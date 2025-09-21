@@ -37,19 +37,6 @@ public class MainJFrame extends JFrame implements ActionListener {
 	private CardLayout cardLayout;
 	private static ArrayList<Student> students = new ArrayList<>();
 	
-	public static void addStudent (Student std) 
-	{
-		students.add(std);
-	}
-	public static Student editStudent(Student)
-	{
-		return 
-	}
-	
-	public static void deleteStudent(int id) 
-	{
-		
-	}
 
 	/**
 	 * Launch the application.
@@ -125,6 +112,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 //		<< << << create JPanel : manageStdPanel
 		JPanel manageStdPanel = createStudentManu();
 		cardPanel.add(manageStdPanel, "ManageStudentManu");
+//		>> >> >> add JPanel : manageStdPanel
+		
+//		<< << << create JPanel : manageStdPanel
+		JPanel addStdPanel = createAddStudentPanel();
+		cardPanel.add(addStdPanel, "AddStudentPanel");
 //		>> >> >> add JPanel : manageStdPanel
 		
 		
