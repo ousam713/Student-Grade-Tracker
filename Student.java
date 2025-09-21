@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 public class Student extends JPanel 
@@ -121,11 +122,14 @@ public class Student extends JPanel
 				// inner class 
 				class AddStudent extends JPanel
 				{
-					private JPanel cardPanel;
-					private JLabel firstNameLabel;
-					private JLabel lastNameLabel;
-					private JLabel emailLabel;
-					private JList branchList; 
+					private static JPanel cardPanel;
+					private static JLabel firstNameLabel;
+					private static JTextField firstNameFiald;
+					private static JLabel lastNameLabel;
+					private static JTextField lastNameFiald;
+					private static JLabel emailLabel;
+					private static JTextField emailFiald;
+					private static JList<String> branchList; 
 					
 			//		static 
 			//		{
@@ -138,14 +142,27 @@ public class Student extends JPanel
 						cardPanel = new JPanel();
 						cardPanel.setBackground(null);
 						cardPanel.setLayout(new GridLayout(4,2,20,20));
+						
 						firstNameLabel= new JLabel("First name");
+						firstNameFiald = new JTextField();
+						
 						lastNameLabel = new JLabel("Last name");
+						lastNameFiald = new JTextField();
+						
 						emailLabel = new JLabel("Email");
+						emailFiald = new JTextField();
+						
 						branchList = new JList<String>();
 						
 						cardPanel.add(firstNameLabel);
+						cardPanel.add(firstNameFiald);
+						
 						cardPanel.add(lastNameLabel);
+						cardPanel.add(lastNameFiald);
+						
 						cardPanel.add(emailLabel);
+						cardPanel.add(emailFiald);
+						
 						cardPanel.add(branchList);
 						
 					}
@@ -155,9 +172,15 @@ public class Student extends JPanel
 						return this;
 					}
 					
+					public JPanel getAddStudentPanel() 
+					{
+						return cardPanel;
+					} 
+					
 					public static void createAddStudentPanel() 
 					{
-						
+						Student std = new Student(firstNameFiald.getText(),lastNameFiald.getText(),emailFiald.getText());
+						MainJFrame.students.add();
 					} 
 				}
 	
