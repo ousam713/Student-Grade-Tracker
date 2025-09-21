@@ -120,7 +120,7 @@ public class Student extends JPanel
 //	}
 	
 				// inner class 
-				class AddStudent extends JPanel
+				class lolAddStudent extends JPanel
 				{
 					private static JPanel cardPanel;
 					private static JLabel firstNameLabel;
@@ -137,7 +137,7 @@ public class Student extends JPanel
 			//			
 			//		}
 					
-					public AddStudent() 
+					public lolAddStudent() 
 					{
 						cardPanel = new JPanel();
 						cardPanel.setBackground(null);
@@ -180,7 +180,7 @@ public class Student extends JPanel
 					public static void createAddStudentPanel() 
 					{
 						Student std = new Student(firstNameFiald.getText(),lastNameFiald.getText(),emailFiald.getText());
-						MainJFrame.students.add();
+//						MainJFrame.students.add();
 					} 
 				}
 	
