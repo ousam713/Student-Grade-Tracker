@@ -115,7 +115,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 //		>> >> >> add JPanel : manageStdPanel
 		
 //		<< << << create JPanel : manageStdPanel
-		JPanel addStdPanel = createAddStudentPanel();
+		JPanel addStdPanel = Student.AddStudent.createAddStudentPanel();
 		cardPanel.add(addStdPanel, "AddStudentPanel");
 //		>> >> >> add JPanel : manageStdPanel
 		
