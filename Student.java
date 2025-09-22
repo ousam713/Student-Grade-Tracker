@@ -214,17 +214,13 @@ public class Student extends JPanel
 		in.close();
 	}
 
-	public static void deleteStd(ArrayList<Student> students)
+	public static void deleteStd(ArrayList<Student> students, String id)
 	{
-		Student student = StudentHelper.searchStd(students);
-		if(student != null) 
+		for(Student std:students) 
 		{
-			try 
+			if(std.getId().equals(id)) 
 			{
-				students.remove(student);
-			} catch(Exception e) 
-			{
-				System.out.println("ERROR : while trying to delete student!");
+				
 			}
 		}
 	}
