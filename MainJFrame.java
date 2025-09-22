@@ -258,6 +258,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/modify_std.png");
 		JButton modefyStdBtn = new JButton(icon1_2);
+		removeMarginBtn(modefyStdBtn,icon1_2);
 		modefyStdBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "ModifyStudentPanel");
 	});
@@ -281,8 +282,113 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		return manageStdPanel;
 	}	
+	
 		
 	public JPanel createAddStudentPanel() 
+	{
+        JPanel addStdPanel = new JPanel();
+        addStdPanel.setBackground(null);
+        addStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+
+        // Article 1
+        JPanel article1 = new JPanel(new BorderLayout(10, 5));
+        article1.setBackground(null);
+
+        JLabel firstNameLabel = new JLabel("First name:");
+        firstNameLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField firstNameField = new JTextField();
+        
+        firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article1.add(firstNameLabel, BorderLayout.WEST);
+        article1.add(firstNameField, BorderLayout.CENTER);
+        article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+        // Article 2
+        JPanel article2 = new JPanel(new BorderLayout(10, 5));
+        article2.setBackground(null);
+
+        JLabel lastNameLabel = new JLabel("Last name:");
+        lastNameLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField lastNameField = new JTextField();
+        
+        lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article2.add(lastNameLabel, BorderLayout.WEST);
+        article2.add(lastNameField, BorderLayout.CENTER);
+        article2.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article2.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+        // Article 3
+        JPanel article3 = new JPanel(new BorderLayout(10, 5));
+        article3.setBackground(null);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField emailField = new JTextField();
+        
+        emailField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article3.add(emailLabel, BorderLayout.WEST);
+        article3.add(emailField, BorderLayout.CENTER);
+        article3.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article3.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+        // Article 4
+        JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        article4.setBackground(null);
+
+        JButton submitBtn = new JButton("Submit");
+        JButton returnBtn = new JButton("Return");
+        
+        submitBtn.addActionListener(e->{
+        	String firstName = firstNameField.getText();
+			String lastName = lastNameField.getText();
+			String email = emailField.getText();
+        	if(firstName.isEmpty() || lastName.isEmpty() || lastName.isEmpty()) 
+        	{
+        		JOptionPane.showMessageDialog(cardPanel, 
+                        "Please fill in all fields", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+        	} else 
+        	{
+        		addStudent(new Student(firstName,lastName,email));
+                JOptionPane.showMessageDialog(cardPanel, 
+                    "Student added successfully!", 
+                    "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                firstNameField.setText("");
+                lastNameField.setText("");
+                emailField.setText("");
+                
+                for(Student std: students) 
+                {
+                	System.out.println(std.getLastName());
+                }
+        	}
+        });
+        returnBtn.addActionListener(e->{
+        	cardLayout.show(cardPanel, "ManageStudentManu");
+        }); 
+
+        article4.add(submitBtn);
+        article4.add(returnBtn);
+
+        // Add all articles to main panel
+        addStdPanel.add(article1);
+        addStdPanel.add(article2);
+        addStdPanel.add(article3);
+        addStdPanel.add(article4);
+
+        return addStdPanel;
+    }
+	
+	
+	
+	public JPanel createModefyStudentPanel() 
 	{
         JPanel modefyStdPanel = new JPanel();
         modefyStdPanel.setBackground(null);
@@ -382,110 +488,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.add(article4);
 
         return modefyStdPanel;
-    }
-	
-	
-	
-	public JPanel createModefyStudentPanel() 
-	{
-        JPanel addStdPanel = new JPanel();
-//        addStdPanel.setBackground(null);
-        addStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
-
-        // Article 1
-        JPanel article1 = new JPanel(new BorderLayout(10, 5));
-        article1.setBackground(null);
-
-        JLabel firstNameLabel = new JLabel("First name:");
-        firstNameLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField firstNameField = new JTextField();
-        
-        firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
-
-        article1.add(firstNameLabel, BorderLayout.WEST);
-        article1.add(firstNameField, BorderLayout.CENTER);
-        article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
-        article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
-
-        // Article 2
-        JPanel article2 = new JPanel(new BorderLayout(10, 5));
-        article2.setBackground(null);
-
-        JLabel lastNameLabel = new JLabel("Last name:");
-        lastNameLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField lastNameField = new JTextField();
-        
-        lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
-
-        article2.add(lastNameLabel, BorderLayout.WEST);
-        article2.add(lastNameField, BorderLayout.CENTER);
-        article2.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
-        article2.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
-
-        // Article 3
-        JPanel article3 = new JPanel(new BorderLayout(10, 5));
-        article3.setBackground(null);
-
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField emailField = new JTextField();
-        
-        emailField.setFont(new Font("Serif", Font.BOLD, 14));
-
-        article3.add(emailLabel, BorderLayout.WEST);
-        article3.add(emailField, BorderLayout.CENTER);
-        article3.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
-        article3.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
-
-        // Article 4
-        JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
-        article4.setBackground(null);
-
-        JButton submitBtn = new JButton("Submit");
-        JButton returnBtn = new JButton("Return");
-        
-        submitBtn.addActionListener(e->{
-        	String firstName = firstNameField.getText();
-			String lastName = lastNameField.getText();
-			String email = emailField.getText();
-        	if(firstName.isEmpty() || lastName.isEmpty() || lastName.isEmpty()) 
-        	{
-        		JOptionPane.showMessageDialog(cardPanel, 
-                        "Please fill in all fields", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-        	} else 
-        	{
-        		addStudent(new Student(firstName,lastName,email));
-                JOptionPane.showMessageDialog(cardPanel, 
-                    "Student added successfully!", 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                firstNameField.setText("");
-                lastNameField.setText("");
-                emailField.setText("");
-                
-                for(Student std: students) 
-                {
-                	System.out.println(std.getLastName());
-                }
-        	}
-        });
-        returnBtn.addActionListener(e->{
-        	cardLayout.show(cardPanel, "ManageStudentManu");
-        }); 
-
-        article4.add(submitBtn);
-        article4.add(returnBtn);
-
-        // Add all articles to main panel
-        addStdPanel.add(article1);
-        addStdPanel.add(article2);
-        addStdPanel.add(article3);
-        addStdPanel.add(article4);
-
-        return addStdPanel;
     }
 	
 }
