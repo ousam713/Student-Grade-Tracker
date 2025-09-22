@@ -63,9 +63,16 @@ public class MainJFrame extends JFrame implements ActionListener {
 		students.get(id).setEmail(email);
 	}
 	
-	public void deleteStudent (String id)
+	public void deleteStudent (int id)
 	{
-		Student.deleteStd(students,id);
+		int i=0;
+		for(Student std:students) 
+		{
+			if(std.getId() == id) {
+				students.remove(i);
+			}
+			i++;
+		}
 	}
 	
 	/**
@@ -123,7 +130,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 
 		
 //		<< << create JPanel : manuContainerPanel
-		// TODO : add  JLayeredPanel to solve Labels problem (it must contain manuSubPanel and labelContainerPanel a JPanel that has an ABSOLUTE LM)
+		// TODO 1 : add  JLayeredPanel to solve Labels problem (it must contain manuSubPanel and labelContainerPanel a JPanel that has an ABSOLUTE LM)
 		/*
 		
 		JLayeredPane manuContainerPanel = new JLayeredPane();
@@ -134,24 +141,29 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		
 //		<< << << create JPanel : manuSubPanel
-		JPanel manuSubPanel = createMainManuPanel();
+		JPanel manuSubPanel = getMainManuPanel();
 		cardPanel.add(manuSubPanel, "MainManu");
 //		>> >> >> add JPanel : manuSubPanel
 		
 		
 //		<< << << create JPanel : manageStdPanel
-		JPanel manageStdPanel = createStudentManu();
+		JPanel manageStdPanel = getStudentManu();
 		cardPanel.add(manageStdPanel, "ManageStudentManu");
 //		>> >> >> add JPanel : manageStdPanel
 		
 //		<< << << create JPanel : addStdPanel
-		JPanel addStdPanel = createAddStudentPanel();
+		JPanel addStdPanel = getAddStudentPanel();
 		cardPanel.add(addStdPanel, "AddStudentPanel");
 //		>> >> >> add JPanel : addStdPanel
 		
 //		<< << << create JPanel : modifyStdPanel
-		JPanel modifyStdPanel = createModefyStudentPanel();
+		JPanel modifyStdPanel = getModefyStudentPanel();
 		cardPanel.add(modifyStdPanel, "ModifyStudentPanel");
+//		>> >> >> add JPanel : modifyStdPanel
+		
+//		<< << << create JPanel : modifyStdPanel
+		JPanel deleteStdPanel = getDeleteStudentPanel();
+		cardPanel.add(deleteStdPanel, "DeleteStudentPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
 		
@@ -207,7 +219,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 	}
 	
-	private JPanel createMainManuPanel() 
+	private JPanel getMainManuPanel() 
 	{
 		JPanel manuSubPanel = new JPanel();
 		manuSubPanel.setBackground(null);
@@ -242,7 +254,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		return manuSubPanel;
 	}
 	
-	private JPanel createStudentManu() 
+	private JPanel getStudentManu() 
 	{
 		JPanel manageStdPanel = new JPanel();
 		manageStdPanel.setBackground(null);
@@ -266,7 +278,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/delete_std.png");
 		JButton deleteStdBtn = new JButton(icon1_3);
-		removeMarginBtn(deleteStdBtn,icon1_1);
+		removeMarginBtn(deleteStdBtn,icon1_3);
+		deleteStdBtn.addActionListener(e->{
+			cardLayout.show(cardPanel, "DeleteStudentPanel");
+	});
+		
 		
 		JButton returnBtn = new JButton("Retrun back");
 		returnBtn.addActionListener(event->{
@@ -284,7 +300,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	}	
 	
 		
-	public JPanel createAddStudentPanel() 
+	public JPanel getAddStudentPanel() 
 	{
         JPanel addStdPanel = new JPanel();
         addStdPanel.setBackground(null);
@@ -366,7 +382,7 @@ public class MainJFrame extends JFrame implements ActionListener {
                 
                 for(Student std: students) 
                 {
-                	System.out.println(std.getLastName());
+                	System.out.println(std.getId() + " " +std.getLastName());
                 }
         	}
         });
@@ -388,7 +404,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
-	public JPanel createModefyStudentPanel() 
+	public JPanel getModefyStudentPanel() 
 	{
         JPanel modefyStdPanel = new JPanel();
         modefyStdPanel.setBackground(null);
@@ -490,6 +506,73 @@ public class MainJFrame extends JFrame implements ActionListener {
         return modefyStdPanel;
     }
 	
+	
+	// TODO 2 reimplement this: 
+	public JPanel getDeleteStudentPanel() 
+	{		
+        JPanel deleteStdPanel = new JPanel();
+        deleteStdPanel.setBackground(null);
+        deleteStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+
+        // Article 1
+        JPanel article1 = new JPanel(new BorderLayout(10, 5));
+        article1.setBackground(null);
+
+        JLabel firstNameLabel = new JLabel("STUDENT'S id:");
+        firstNameLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField firstNameField = new JTextField();
+        
+        firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article1.add(firstNameLabel, BorderLayout.WEST);
+        article1.add(firstNameField, BorderLayout.CENTER);
+        article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+
+        // Article 4
+        JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        article4.setBackground(null);
+
+        JButton submitBtn = new JButton("Submit");
+        JButton returnBtn = new JButton("Return");
+        
+        submitBtn.addActionListener(e->{
+        	String firstName = firstNameField.getText();
+        	if(firstName.isEmpty()) 
+        	{
+        		JOptionPane.showMessageDialog(cardPanel, 
+                        "Please fill in all fields", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+        	} else 
+        	{
+                JOptionPane.showMessageDialog(cardPanel, 
+                    "Student added successfully!", 
+                    "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                firstNameField.setText("");
+                
+                for(Student std: students) 
+                {
+                	System.out.println(std.getLastName());
+                }
+        	}
+        });
+        returnBtn.addActionListener(e->{
+        	cardLayout.show(cardPanel, "ManageStudentManu");
+        }); 
+
+        article4.add(submitBtn);
+        article4.add(returnBtn);
+
+        // Add all articles to main panel
+        deleteStdPanel.add(article1);
+        deleteStdPanel.add(article4);
+
+        return deleteStdPanel;
+    }
 }
 
 /*

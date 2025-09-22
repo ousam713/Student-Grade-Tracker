@@ -17,7 +17,7 @@ public class Student extends JPanel
 	private static final long serialVersionUID = 1L;
 //	private JPanel cardPanel;
 	private static int count = 1;
-	private String id;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -37,14 +37,14 @@ public class Student extends JPanel
 	// Constructor
 	public Student(String firstName,String lastName)
 	{
-		this.id = String.format("%08d", count);
+		this.id = count;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		count++;
 	}
 	public Student(String firstName,String lastName,String email)
 	{
-		this.id = String.format("%08d", count);
+		this.id = count;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -53,7 +53,7 @@ public class Student extends JPanel
 	
 	
 	// Getters & Setters
-	public String getId() 
+	public int getId() 
 	{
 		return this.id;
 	}
@@ -214,16 +214,16 @@ public class Student extends JPanel
 		in.close();
 	}
 
-	public static void deleteStd(ArrayList<Student> students, String id)
-	{
-		for(Student std:students) 
-		{
-			if(std.getId().equals(id)) 
-			{
-				
-			}
-		}
-	}
+//	public static void deleteStd(ArrayList<String id)
+//	{
+//		for(Student std:students) 
+//		{
+//			if(std.getId().equals(id)) 
+//			{
+//				
+//			}
+//		}
+//	}
 	
 	
 	public static void showStudents(ArrayList<Student> students) 
