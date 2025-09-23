@@ -113,7 +113,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		contentPane.setLayout(new BorderLayout());
 		
-		JLabel imageLogo = new JLabel(new ImageIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/SMS.png"));
+		JLabel imageLogo = new JLabel(new ImageIcon("icons/SMS.png"));
 		contentPane.add(imageLogo, BorderLayout.NORTH);
 		
 //		<< create JPanel : manuPanel
@@ -226,22 +226,22 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
 		
 		
-		ImageIcon icon1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_std.png");
+		ImageIcon icon1 = getResizedIcon("icons/manage_std.png");
 		JButton manageStdBtn = new JButton(icon1);
 		removeMarginBtn(manageStdBtn,icon1);
 		manageStdBtn.addActionListener(event->{
 			cardLayout.show(cardPanel, "ManageStudentManu");
 		});
 		//
-		ImageIcon icon2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/search_std.png");
+		ImageIcon icon2 = getResizedIcon("icons/search_std.png");
 		JButton searchStdBtn = new JButton(icon2);
 		removeMarginBtn(searchStdBtn,icon1);
 		
-		ImageIcon icon3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/manage_grades.png");
+		ImageIcon icon3 = getResizedIcon("icons/manage_grades.png");
 		JButton manageGradesBtn = new JButton(icon3);
 		removeMarginBtn(manageGradesBtn,icon1);
 		
-		ImageIcon icon4 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/statistic.png");
+		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
 		removeMarginBtn(statisticBtn,icon1);
 		
@@ -261,14 +261,14 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manageStdPanel.setLayout(new GridLayout(2,2,20,20));
 		
 		
-		ImageIcon icon1_1 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/add_std.png");
+		ImageIcon icon1_1 = getResizedIcon("icons/add_std.png");
 		JButton addStdBtn = new JButton(icon1_1);
 		removeMarginBtn(addStdBtn,icon1_1);
 		addStdBtn.addActionListener(e->{
 				cardLayout.show(cardPanel, "AddStudentPanel");
 		});
 		
-		ImageIcon icon1_2 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/modify_std.png");
+		ImageIcon icon1_2 = getResizedIcon("icons/modify_std.png");
 		JButton modefyStdBtn = new JButton(icon1_2);
 		removeMarginBtn(modefyStdBtn,icon1_2);
 		modefyStdBtn.addActionListener(e->{
@@ -276,7 +276,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	});
 //		ModifyStudentPanel
 		
-		ImageIcon icon1_3 = getResizedIcon("/home/ousam713/Desktop/mes_stages/09-2025_Code_Alpha/Projects/TASK_1/Student_Grade_Tracker/icons/delete_std.png");
+		ImageIcon icon1_3 = getResizedIcon("icons/delete_std.png");
 		JButton deleteStdBtn = new JButton(icon1_3);
 		removeMarginBtn(deleteStdBtn,icon1_3);
 		deleteStdBtn.addActionListener(e->{
@@ -519,12 +519,12 @@ public class MainJFrame extends JFrame implements ActionListener {
         article1.setBackground(null);
 
         JLabel idLabel = new JLabel("STUDENT'S id:");
-        firstNameLabel.setPreferredSize(new Dimension(100, 30));
+        idLabel.setPreferredSize(new Dimension(100, 30));
         JTextField firstNameField = new JTextField();
         
         firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
-        article1.add(firstNameLabel, BorderLayout.WEST);
+        article1.add(idLabel, BorderLayout.WEST);
         article1.add(firstNameField, BorderLayout.CENTER);
         article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
         article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
