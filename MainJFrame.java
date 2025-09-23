@@ -105,7 +105,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		setTitle("Student Managemnt System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(850, 660);
+		setSize(850, 740);
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
@@ -413,8 +413,24 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
         JPanel modefyStdPanel = new JPanel();
         modefyStdPanel.setBackground(null);
-        modefyStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+        modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
+        
+     // Article 1
+        JPanel article0 = new JPanel(new BorderLayout(10, 5));
+        article0.setBackground(null);
+
+        JLabel idLabel = new JLabel("Student's id:");
+        idLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField idField = new JTextField();
+        
+        idField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article0.add(idLabel, BorderLayout.WEST);
+        article0.add(idField, BorderLayout.CENTER);
+        article0.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article0.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+        
         // Article 1
         JPanel article1 = new JPanel(new BorderLayout(10, 5));
         article1.setBackground(null);
@@ -503,6 +519,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         article4.add(returnBtn);
 
         // Add all articles to main panel
+        modefyStdPanel.add(article1);
         modefyStdPanel.add(article1);
         modefyStdPanel.add(article2);
         modefyStdPanel.add(article3);
