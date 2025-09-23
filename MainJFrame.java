@@ -161,11 +161,16 @@ public class MainJFrame extends JFrame implements ActionListener {
 		cardPanel.add(modifyStdPanel, "ModifyStudentPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
+		
+//		<< << << create JPanel : modifyStdPanel
+		JPanel searchStdPanel = getSearchStudentPanel();
+		cardPanel.add(searchStdPanel, "SearchStudentPanel");
+//		>> >> >> add JPanel : modifyStdPanel
+		
 //		<< << << create JPanel : modifyStdPanel
 		JPanel deleteStdPanel = getDeleteStudentPanel();
 		cardPanel.add(deleteStdPanel, "DeleteStudentPanel");
 //		>> >> >> add JPanel : modifyStdPanel
-		
 		
 //		<< << << create JPanel : addStdPanel
 //		JPanel addStdPanel = Student.createAddStudentManu();
@@ -508,9 +513,76 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	// TODO 2 reimplement this: 
-	public JPanel getDeleteStudentPanel() 
+	public JPanel getSearchStudentPanel() 
 	{		
-        JPanel deleteStdPanel = new JPanel();
+        JPanel searchStdPanel = new JPanel();
+        searchStdPanel.setBackground(null);
+        searchStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+
+        // Article 1
+        JPanel article1 = new JPanel(new BorderLayout(10, 5));
+        article1.setBackground(null);
+
+        JLabel idLabel = new JLabel("STUDENT'S id:");
+        idLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField idField = new JTextField();
+        
+        idField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article1.add(idLabel, BorderLayout.WEST);
+        article1.add(idField, BorderLayout.CENTER);
+        article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+
+        // Article 4
+        JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        article4.setBackground(null);
+
+        JButton submitBtn = new JButton("Submit");
+        JButton returnBtn = new JButton("Return");
+        
+        submitBtn.addActionListener(e->{
+        	String id = idField.getText();
+        	if(id.isEmpty()) 
+        	{
+        		JOptionPane.showMessageDialog(cardPanel, 
+                        "Please fill in all fields", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+        	} else 
+        	{
+        		
+                JOptionPane.showMessageDialog(cardPanel, 
+                    "Student searchd successfully!", 
+                    "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                idField.setText("");
+                
+                for(Student std: students) 
+                {
+                	System.out.println(std.getLastName());
+                }
+        	}
+        });
+        returnBtn.addActionListener(e->{
+        	cardLayout.show(cardPanel, "ManageStudentManu");
+        }); 
+
+        article4.add(submitBtn);
+        article4.add(returnBtn);
+
+        // Add all articles to main panel
+        searchStdPanel.add(article1);
+        searchStdPanel.add(article4);
+
+        return searchStdPanel;
+    }
+	
+	public JPanel getDeleteStudentPanel() 
+	{
+		JPanel deleteStdPanel = new JPanel();
         deleteStdPanel.setBackground(null);
         deleteStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
 
@@ -573,7 +645,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         deleteStdPanel.add(article4);
 
         return deleteStdPanel;
-    }
+	}
 }
 
 /*
