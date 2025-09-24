@@ -464,8 +464,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         article0.add(idField, BorderLayout.CENTER);
         article0.add(searchBtn, BorderLayout.EAST);
         
-//        article0.add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
-//        article0.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
         
         // Article 1
         JPanel article1 = new JPanel(new BorderLayout(10, 5));
@@ -529,9 +527,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         article4.setVisible(true);
         
         searchBtn.addActionListener(e->{
-//        	String idStr = idField.getText();
-//        	int id = Integer.parseInt(idStr);
-//        	Student student = getStudent(id);
         	try {
         	    String idStr = idField.getText().trim();
         	    int id = Integer.parseInt(idStr);
@@ -576,9 +571,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         	    int id = Integer.parseInt(idStr);
         	    Student student = getStudent(id);
         	    
-//        	    student.setFirstName(student.getFirstName());
-//        	    student.setLastName(student.getLastName());
-//        	    student.setEmail(student.getEmail());
         	    
                 JOptionPane.showMessageDialog(cardPanel, 
                     "Student added successfully!", 
@@ -596,6 +588,10 @@ public class MainJFrame extends JFrame implements ActionListener {
         	}
         });
         returnBtn.addActionListener(e->{
+        	idField.setText("");
+        	firstNameField.setText("");
+	        lastNameField.setText("");
+	        emailField.setText("");
         	cardLayout.show(cardPanel, "ManageStudentManu");
         });
         
@@ -671,7 +667,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         article4.add(submitBtn);
         article4.add(returnBtn);
 
-        // Add all articles to main panel
         searchStdPanel.add(article1);
         searchStdPanel.add(article4);
 
@@ -691,7 +686,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         
      // Article 0
         JPanel article0 = new JPanel();
-        article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40)); // Fixed height
+        article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40));
         article0.setBackground(null);
 
         JLabel idLabel = new JLabel("Student's id:");
@@ -707,10 +702,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         
         article0.add(idLabel, BorderLayout.WEST);
         article0.add(idField, BorderLayout.CENTER);
-//        article0.add(searchBtn, BorderLayout.EAST);
-        
-//        article0.add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
-//        article0.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
         
 
         // Article 4
@@ -734,13 +725,12 @@ public class MainJFrame extends JFrame implements ActionListener {
 
     	    if (idStr != null && !idStr.trim().isEmpty()) {
     	        try {
-    	            int id = Integer.parseInt(idStr);
-    	            id--;
-    	            // Check if student exists
+    	            int id = Integer.parseInt(idStr)-1;
+//    	            id--;
+
     	            if (id >= 0 && id < students.size()) {
     	                Student studentToDelete = students.get(id);
     	                
-// Confirm deletion
     	                int confirm = JOptionPane.showConfirmDialog(
     	                    cardPanel,
     	                    "Are you sure you want to delete:\n" +
@@ -751,7 +741,7 @@ public class MainJFrame extends JFrame implements ActionListener {
     	                );
     	                
     	                if (confirm == JOptionPane.YES_OPTION) {
-    	                    // Delete from ArrayList
+
     	                    students.remove(id);
     	                    
     	                    JOptionPane.showMessageDialog(
@@ -761,14 +751,14 @@ public class MainJFrame extends JFrame implements ActionListener {
     	                        JOptionPane.INFORMATION_MESSAGE
     	                    );
     	                    
-    	                    // Print remaining students for verification
     	                    System.out.println("Remaining students:");
     	                    for(Student std : students) {
-    	                        System.out.println("ID: " + students.indexOf(std) + 
+    	                        System.out.println("ID: " + std.getId() + 
     	                                         " - " + std.getFirstName() + " " + std.getLastName());
     	                    }
     	                }
     	            } else {
+    	            	id++;
     	                JOptionPane.showMessageDialog(
     	                    cardPanel,
     	                    "Student with ID " + id + " not found!",
@@ -794,8 +784,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.add(article4);
 
         return modefyStdPanel;
-
-
 	}
 
 }
