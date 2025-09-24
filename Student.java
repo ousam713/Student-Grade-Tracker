@@ -17,7 +17,7 @@ public class Student extends JPanel
 	private static final long serialVersionUID = 1L;
 //	private JPanel cardPanel;
 	private static int count = 1;
-	private int id;
+	private final int id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -96,6 +96,7 @@ public class Student extends JPanel
 	}
 	
 	
+//	public Student getStudent() {}
 	
 	
 

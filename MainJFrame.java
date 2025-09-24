@@ -46,9 +46,29 @@ public class MainJFrame extends JFrame implements ActionListener {
 	private static ArrayList<Student> students = new ArrayList<>();
 	
 
-	public ArrayList<Student> getStudents(ArrayList<Student> students)
+	public ArrayList<Student> getStudents(ArrayList<Student> st_u_dents)
 	{
-		return students;
+		return st_u_dents;
+	}
+	
+	public Student getStudent(int idWanted)
+	{
+		Student student = null;
+		try 
+		{
+			for(Student std:students) 
+			{
+				if(std.getId() == idWanted) 
+				{
+					student = std;
+					break;
+				}
+			}
+		}catch(Exception e) 
+		{
+			System.out.println("std not found");
+		}
+		return student;
 	}
 	
 	public static void addStudent (Student std)
@@ -286,6 +306,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		removeMarginBtn(deleteStdBtn,icon1_3);
 		deleteStdBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "DeleteStudentPanel");
+			
 	});
 		
 		
@@ -309,7 +330,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
         JPanel addStdPanel = new JPanel();
         addStdPanel.setBackground(null);
-        addStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+        addStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
         // Article 1
         JPanel article1 = new JPanel(new BorderLayout(10, 5));
@@ -367,7 +388,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         	String firstName = firstNameField.getText();
 			String lastName = lastNameField.getText();
 			String email = emailField.getText();
-        	if(firstName.isEmpty() || lastName.isEmpty() || lastName.isEmpty()) 
+        	if(firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) 
         	{
         		JOptionPane.showMessageDialog(cardPanel, 
                         "Please fill in all fields", 
@@ -416,20 +437,28 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
         
-     // Article 1
-        JPanel article0 = new JPanel(new BorderLayout(10, 5));
+     // Article 0
+        JPanel article0 = new JPanel();
+        article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40)); // Fixed height
         article0.setBackground(null);
 
         JLabel idLabel = new JLabel("Student's id:");
         idLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField idField = new JTextField();
         
+        JTextField idField = new JTextField();
         idField.setFont(new Font("Serif", Font.BOLD, 14));
-
+        idField.setPreferredSize(new Dimension(200, 30));
+        
+        JButton searchBtn = new JButton("search");
+        searchBtn.setPreferredSize(new Dimension(100, 30));
+        
+        
         article0.add(idLabel, BorderLayout.WEST);
         article0.add(idField, BorderLayout.CENTER);
-        article0.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
-        article0.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+        article0.add(searchBtn, BorderLayout.EAST);
+        
+//        article0.add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
+//        article0.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
         
         // Article 1
         JPanel article1 = new JPanel(new BorderLayout(10, 5));
@@ -482,12 +511,53 @@ public class MainJFrame extends JFrame implements ActionListener {
 
         JButton submitBtn = new JButton("Submit");
         JButton returnBtn = new JButton("Return");
+         
+
+        article4.add(submitBtn);
+        article4.add(returnBtn);
+
+        article1.setVisible(false);
+        article2.setVisible(false);
+        article3.setVisible(false);
+        article4.setVisible(true);
+        
+        searchBtn.addActionListener(e->{
+//        	String idStr = idField.getText();
+//        	int id = Integer.parseInt(idStr);
+//        	Student student = getStudent(id);
+        	try {
+        	    String idStr = idField.getText().trim();
+        	    int id = Integer.parseInt(idStr);
+        	    Student student = getStudent(id);
+        	    
+        	    if (student != null) {
+        	        // Student found - populate fields or show info
+        	        firstNameField.setText(student.getFirstName());
+        	        lastNameField.setText(student.getLastName());
+        	        emailField.setText(student.getEmail());
+        	        
+        	        
+        	        article1.setVisible(true);
+        	        article2.setVisible(true);
+        	        article3.setVisible(true);
+        	        article4.setVisible(true);
+        	    } else {
+        	        JOptionPane.showMessageDialog(this, "Student with ID " + id + " not found", 
+        	                                    "Not Found", JOptionPane.WARNING_MESSAGE);
+        	    }
+        	} catch (NumberFormatException ex) {
+        	    JOptionPane.showMessageDialog(this, "Please enter a valid numeric ID", 
+        	                                "Invalid ID", JOptionPane.ERROR_MESSAGE);
+        	}
+        });
+        
+        
         
         submitBtn.addActionListener(e->{
         	String firstName = firstNameField.getText();
 			String lastName = lastNameField.getText();
 			String email = emailField.getText();
-        	if(firstName.isEmpty() || lastName.isEmpty() || lastName.isEmpty()) 
+        	if(firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) 
         	{
         		JOptionPane.showMessageDialog(cardPanel, 
                         "Please fill in all fields", 
@@ -495,15 +565,22 @@ public class MainJFrame extends JFrame implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
         	} else 
         	{
-        		addStudent(new Student(firstName,lastName,email));
+        		String idStr = idField.getText().trim();
+        	    int id = Integer.parseInt(idStr);
+        	    Student student = getStudent(id);
+        	    
+//        	    student.setFirstName(student.getFirstName());
+//        	    student.setLastName(student.getLastName());
+//        	    student.setEmail(student.getEmail());
+        	    
                 JOptionPane.showMessageDialog(cardPanel, 
                     "Student added successfully!", 
                     "Success", 
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                firstNameField.setText("");
-                lastNameField.setText("");
-                emailField.setText("");
+                student.setFirstName(firstNameField.getText());
+                student.setLastName(lastNameField.getText());
+                student.setEmail(emailField.getText());
                 
                 for(Student std: students) 
                 {
@@ -513,13 +590,10 @@ public class MainJFrame extends JFrame implements ActionListener {
         });
         returnBtn.addActionListener(e->{
         	cardLayout.show(cardPanel, "ManageStudentManu");
-        }); 
-
-        article4.add(submitBtn);
-        article4.add(returnBtn);
-
+        });
+        
         // Add all articles to main panel
-        modefyStdPanel.add(article1);
+        modefyStdPanel.add(article0);
         modefyStdPanel.add(article1);
         modefyStdPanel.add(article2);
         modefyStdPanel.add(article3);
@@ -597,187 +671,124 @@ public class MainJFrame extends JFrame implements ActionListener {
         return searchStdPanel;
     }
 	
+	
+	
+	
 	public JPanel getDeleteStudentPanel() 
 	{
-		JPanel deleteStdPanel = new JPanel();
-        deleteStdPanel.setBackground(null);
-        deleteStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
-
-        // Article 1
-        JPanel article1 = new JPanel(new BorderLayout(10, 5));
-        article1.setBackground(null);
-
-        JLabel idLabel = new JLabel("STUDENT'S id:");
-        idLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField firstNameField = new JTextField();
+		JPanel modefyStdPanel = new JPanel();
+        modefyStdPanel.setBackground(null);
+        modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
         
-        firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
+        
+     // Article 0
+        JPanel article0 = new JPanel();
+        article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40)); // Fixed height
+        article0.setBackground(null);
 
-        article1.add(idLabel, BorderLayout.WEST);
-        article1.add(firstNameField, BorderLayout.CENTER);
-        article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
-        article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
-
+        JLabel idLabel = new JLabel("Student's id:");
+        idLabel.setPreferredSize(new Dimension(100, 30));
+        
+        JTextField idField = new JTextField();
+        idField.setFont(new Font("Serif", Font.BOLD, 14));
+        idField.setPreferredSize(new Dimension(225, 30));
+        
+        JButton searchBtn = new JButton("search");
+        searchBtn.setPreferredSize(new Dimension(100, 30));
+        
+        
+        article0.add(idLabel, BorderLayout.WEST);
+        article0.add(idField, BorderLayout.CENTER);
+//        article0.add(searchBtn, BorderLayout.EAST);
+        
+//        article0.add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
+//        article0.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
+        
 
         // Article 4
         JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         article4.setBackground(null);
 
-        JButton submitBtn = new JButton("Submit");
+        JButton deleteBtn = new JButton("Delete");
         JButton returnBtn = new JButton("Return");
+         
+
+        article4.add(deleteBtn);
+        article4.add(returnBtn);
+
+        article4.setVisible(true);
         
-        submitBtn.addActionListener(e->{
-        	String firstName = firstNameField.getText();
-        	if(firstName.isEmpty()) 
-        	{
-        		JOptionPane.showMessageDialog(cardPanel, 
-                        "Please fill in all fields", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-        	} else 
-        	{
-        		
-                JOptionPane.showMessageDialog(cardPanel, 
-                    "Student deleted successfully!", 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                firstNameField.setText("");
-                
-                for(Student std: students) 
-                {
-                	System.out.println(std.getLastName());
-                }
-        	}
+        
+        
+        
+        deleteBtn.addActionListener(e->{
+        	String idStr = idField.getText().trim();
+
+    	    if (idStr != null && !idStr.trim().isEmpty()) {
+    	        try {
+    	            int id = Integer.parseInt(idStr);
+    	            id--;
+    	            // Check if student exists
+    	            if (id >= 0 && id < students.size()) {
+    	                Student studentToDelete = students.get(id);
+    	                
+    	                // Confirm deletion
+    	                int confirm = JOptionPane.showConfirmDialog(
+    	                    cardPanel,
+    	                    "Are you sure you want to delete:\n" +
+    	                    studentToDelete.getFirstName() + " " + studentToDelete.getLastName() + "?",
+    	                    "Confirm Deletion", 
+    	                    JOptionPane.YES_NO_OPTION,
+    	                    JOptionPane.WARNING_MESSAGE
+    	                );
+    	                
+    	                if (confirm == JOptionPane.YES_OPTION) {
+    	                    // Delete from ArrayList
+    	                    students.remove(id);
+    	                    
+    	                    JOptionPane.showMessageDialog(
+    	                        cardPanel,
+    	                        "Student deleted successfully!",
+    	                        "Success",
+    	                        JOptionPane.INFORMATION_MESSAGE
+    	                    );
+    	                    
+    	                    // Print remaining students for verification
+    	                    System.out.println("Remaining students:");
+    	                    for(Student std : students) {
+    	                        System.out.println("ID: " + students.indexOf(std) + 
+    	                                         " - " + std.getFirstName() + " " + std.getLastName());
+    	                    }
+    	                }
+    	            } else {
+    	                JOptionPane.showMessageDialog(
+    	                    cardPanel,
+    	                    "Student with ID " + id + " not found!",
+    	                    "Error",
+    	                    JOptionPane.ERROR_MESSAGE
+    	                );
+    	            }
+    	        } catch (NumberFormatException ex) {
+    	            JOptionPane.showMessageDialog(
+    	                cardPanel,
+    	                "Please enter a valid numeric ID",
+    	                "Error",
+    	                JOptionPane.ERROR_MESSAGE
+    	            );
+    	        }
+    	    }
         });
         returnBtn.addActionListener(e->{
         	cardLayout.show(cardPanel, "ManageStudentManu");
-        }); 
+        });
+        
+        modefyStdPanel.add(article0);
+        modefyStdPanel.add(article4);
 
-        article4.add(submitBtn);
-        article4.add(returnBtn);
+        return modefyStdPanel;
+		
 
-        // Add all articles to main panel
-        deleteStdPanel.add(article1);
-        deleteStdPanel.add(article4);
-
-        return deleteStdPanel;
 	}
 }
 
-/*
-do 
-		{
-			System.out.println( "\n=============="+
-					"\nPress a number:\n"+
-				    "\n1. Manage students"+
-				    "\n2. Show / Search students"+
-				    "\n3. Input grades"+
-				    "\n4. Statistics"+
-				    "\n0. Exit"+
-				    "\n=============="
-					);
-			
-				int n = in.nextInt();
-				
-				if(n == 0) 
-				{
-					System.out.println("Good bye!");
-					break;
-				}
-				
-				switch(n) 
-				{
-					case 1:
-						do 
-						{
-							System.out.println( "/n=============="+
-								    "\nPress a number:\n"+
-								    "\n1. Create student"+
-								    "\n2. Update student"+
-								    "\n3. Delete student"+
-								    "\n0. Return"+
-								    "\n=============="
-									);
-							int n1 = in.nextInt();
-							
-							if(n1 == 0) break;
-							
-							switch(n1) 
-							{
-							case 1:
-								Student.createStd(students);
-								break;
-								
-							case 2:
-								Student.updateStd(students);
-								break;
-								
-							case 3:
-								Student.deleteStd(students);
-								break;
-								
-							default:
-								System.out.println("Number unavailable");
-								break;
-								
-							}
-							
-						}while(true);
-						break;
-					case 2:
-						do 
-						{
-							System.out.println( "/n=============="+
-									"\nPress a number:\n"+
-									"\n1. Show all students"+
-									"\n2. Search a student"+
-									"\n0. Return"+
-									"\n=============="
-									);
-							int n2 = in.nextInt();
-							
-							if(n2 == 0) break;
-							
-							switch(n2)
-							{
-								case 1 : 
-									Student.showStudents(students);
-									break;
-								case 2 : 
-									Student.searchStudents(students);
-									break;
-								default : 
-									System.out.println("Number unavailable");
-									break;
-								
-							}
-							
-						}while(true);
-						break;
-					case 3:
-						
-						break;
-					case 4:
-						do 
-						{
-							System.out.println( "/n=============="+
-									"\nPress a number:\n"+
-									"\n1. Highest score"+
-									"\n2. Lowest score"+
-									"\n3. Class's avergage"+
-									"\n0. Return"+
-									"\n=============="
-									);
-							int n4 = in.nextInt();
-							
-							if(n4 == 0) break;
-						}while(true);
-						break;
-					default:
-						System.out.println("Number unavailable");
-						break;
-				}
-			
-			} while(true);
- */
+
