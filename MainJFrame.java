@@ -136,7 +136,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JLabel imageLogo = new JLabel(new ImageIcon("icons/SMS.png"));
 		contentPane.add(imageLogo, BorderLayout.NORTH);
 		
-//		<< create JPanel : manuPanel
+//		<<  add JPanel : cardPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 //		manuPanel.setSize(300,300);
 		
@@ -192,19 +192,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 		cardPanel.add(searchStdPanel, "SearchStudentPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
-//		<< << << create JPanel : modifyStdPanel
-//		JPanel deleteStdPanel = getDeleteStudentPanel();
-//		cardPanel.add(deleteStdPanel, "DeleteStudentPanel");
-//		>> >> >> add JPanel : modifyStdPanel
-		
-//		<< << << create JPanel : addStdPanel
-//		JPanel addStdPanel = Student.createAddStudentManu();
-//		cardPanel.add(addStdPanel, "AddStudent");
-//		>> >> >> add JPanel : addStdPanel
-		
-		
 		manuPanel.add(cardPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : cardPanel
+		
+		
+//		<< S
 		
 
 		
@@ -266,6 +258,9 @@ public class MainJFrame extends JFrame implements ActionListener {
 		ImageIcon icon2 = getResizedIcon("icons/search_std.png");
 		JButton searchStdBtn = new JButton(icon2);
 		removeMarginBtn(searchStdBtn,icon1);
+		searchStdBtn.addActionListener(e->{
+			cardLayout.show(cardPanel, "SearchStudentPanel");
+		});
 		
 		ImageIcon icon3 = getResizedIcon("icons/manage_grades.png");
 		JButton manageGradesBtn = new JButton(icon3);
@@ -444,7 +439,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
         
-     // Article 0
+        // Article 0
         JPanel article0 = new JPanel();
         article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40)); // Fixed height
         article0.setBackground(null);
@@ -609,68 +604,135 @@ public class MainJFrame extends JFrame implements ActionListener {
 	// TODO 2 reimplement this: 
 	public JPanel getSearchStudentPanel() 
 	{		
-        JPanel searchStdPanel = new JPanel();
-        searchStdPanel.setBackground(null);
-        searchStdPanel.setLayout(new GridLayout(4, 1, 20, 0));
+		JPanel modefyStdPanel = new JPanel();
+        modefyStdPanel.setBackground(null);
+        modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
+        
+        // Article 0
+        JPanel article0 = new JPanel();
+        article0.setPreferredSize(new Dimension(article0.getPreferredSize().width, 40)); // Fixed height
+        article0.setBackground(null);
+
+        JLabel idLabel = new JLabel("Student's id:");
+        idLabel.setPreferredSize(new Dimension(100, 30));
+        
+        JTextField idField = new JTextField();
+        idField.setFont(new Font("Serif", Font.BOLD, 14));
+        idField.setPreferredSize(new Dimension(200, 30));
+        
+        JButton searchBtn = new JButton("search");
+        searchBtn.setPreferredSize(new Dimension(100, 30));
+        
+        
+        article0.add(idLabel, BorderLayout.WEST);
+        article0.add(idField, BorderLayout.CENTER);
+//        article0.add(searchBtn, BorderLayout.EAST);
+        
+        
         // Article 1
         JPanel article1 = new JPanel(new BorderLayout(10, 5));
         article1.setBackground(null);
 
-        JLabel idLabel = new JLabel("STUDENT'S id:");
-        idLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField idField = new JTextField();
+        JLabel firstNameLabel = new JLabel("First name:");
+        firstNameLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField firstNameField = new JTextField();
         
-        idField.setFont(new Font("Serif", Font.BOLD, 14));
+        firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
+        firstNameField.setEditable(false);
 
-        article1.add(idLabel, BorderLayout.WEST);
-        article1.add(idField, BorderLayout.CENTER);
+        article1.add(firstNameLabel, BorderLayout.WEST);
+        article1.add(firstNameField, BorderLayout.CENTER);
         article1.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
         article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
+        // Article 2
+        JPanel article2 = new JPanel(new BorderLayout(10, 5));
+        article2.setBackground(null);
+
+        JLabel lastNameLabel = new JLabel("Last name:");
+        lastNameLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField lastNameField = new JTextField();
+        
+        lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
+        lastNameField.setEditable(false);
+
+        article2.add(lastNameLabel, BorderLayout.WEST);
+        article2.add(lastNameField, BorderLayout.CENTER);
+        article2.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article2.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
+
+        // Article 3
+        JPanel article3 = new JPanel(new BorderLayout(10, 5));
+        article3.setBackground(null);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField emailField = new JTextField();
+        emailField.setEditable(false);
+        
+        emailField.setFont(new Font("Serif", Font.BOLD, 14));
+
+        article3.add(emailLabel, BorderLayout.WEST);
+        article3.add(emailField, BorderLayout.CENTER);
+        article3.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
+        article3.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
         // Article 4
         JPanel article4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         article4.setBackground(null);
 
-        JButton submitBtn = new JButton("Submit");
         JButton returnBtn = new JButton("Return");
-        
-        submitBtn.addActionListener(e->{
-        	String id = idField.getText();
-        	if(id.isEmpty()) 
-        	{
-        		JOptionPane.showMessageDialog(cardPanel, 
-                        "Please fill in all fields", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-        	} else 
-        	{
-        		
-                JOptionPane.showMessageDialog(cardPanel, 
-                    "Student searchd successfully!", 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                idField.setText("");
-                
-                for(Student std: students) 
-                {
-                	System.out.println(std.getLastName());
-                }
-        	}
-        });
+        returnBtn.setPreferredSize(new Dimension(100, 30));
         returnBtn.addActionListener(e->{
-        	cardLayout.show(cardPanel, "ManageStudentManu");
-        }); 
+        	cardLayout.show(cardPanel, "MainManu");
+        });
 
-        article4.add(submitBtn);
+        article4.add(searchBtn);
         article4.add(returnBtn);
 
-        searchStdPanel.add(article1);
-        searchStdPanel.add(article4);
+        article1.setVisible(false);
+        article2.setVisible(false);
+        article3.setVisible(false);
+        article4.setVisible(true);
+        
+        searchBtn.addActionListener(e->{
+        	try {
+        	    String idStr = idField.getText().trim();
+        	    int id = Integer.parseInt(idStr);
+        	    Student student = getStudent(id);
+        	    
+        	    if (student != null) {
+        	        // Student found - populate fields or show info
+        	        firstNameField.setText(student.getFirstName());
+        	        lastNameField.setText(student.getLastName());
+        	        emailField.setText(student.getEmail());
+        	        
+        	        
+        	        article1.setVisible(true);
+        	        article2.setVisible(true);
+        	        article3.setVisible(true);
+        	        article4.setVisible(true);
+        	    } else {
+        	        JOptionPane.showMessageDialog(this, "Student with ID " + id + " not found", 
+        	                                    "Not Found", JOptionPane.WARNING_MESSAGE);
+        	    }
+        	} catch (NumberFormatException ex) {
+        	    JOptionPane.showMessageDialog(this, "Please enter a valid numeric ID", 
+        	                                "Invalid ID", JOptionPane.ERROR_MESSAGE);
+        	}
+        });
+        
 
-        return searchStdPanel;
+        
+        // Add all articles to main panel
+        modefyStdPanel.add(article0);
+        modefyStdPanel.add(article1);
+        modefyStdPanel.add(article2);
+        modefyStdPanel.add(article3);
+        modefyStdPanel.add(article4);
+
+        return modefyStdPanel;
     }
 	
 	
