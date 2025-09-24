@@ -738,7 +738,6 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
-	
 	public JPanel getDeleteStudentPanel() 
 	{
 		JPanel modefyStdPanel = new JPanel();
