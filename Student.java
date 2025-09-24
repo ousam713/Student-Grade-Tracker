@@ -17,7 +17,8 @@ public class Student extends JPanel
 	private static final long serialVersionUID = 1L;
 //	private JPanel cardPanel;
 	private static int count = 1;
-	private int id;
+	private final int id;
+
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -96,6 +97,9 @@ public class Student extends JPanel
 	}
 	
 	
+//	public Student getStudent() {}
+	
+	
 
 	// Methods
 //	public static void createStd(ArrayList<Student> students) 
@@ -120,146 +124,135 @@ public class Student extends JPanel
 //	}
 	
 				// inner class 
-				class lolAddStudent extends JPanel
-				{
-					private static JPanel cardPanel;
-					private static JLabel firstNameLabel;
-					private static JTextField firstNameFiald;
-					private static JLabel lastNameLabel;
-					private static JTextField lastNameFiald;
-					private static JLabel emailLabel;
-					private static JTextField emailFiald;
-					private static JList<String> branchList; 
-					
-			//		static 
-			//		{
-			//			
-			//			
-			//		}
-					
-					public lolAddStudent() 
-					{
-						cardPanel = new JPanel();
-						cardPanel.setBackground(null);
-						cardPanel.setLayout(new GridLayout(4,2,20,20));
-						
-						firstNameLabel= new JLabel("First name");
-						firstNameFiald = new JTextField();
-						
-						lastNameLabel = new JLabel("Last name");
-						lastNameFiald = new JTextField();
-						
-						emailLabel = new JLabel("Email");
-						emailFiald = new JTextField();
-						
-						branchList = new JList<String>();
-						
-						cardPanel.add(firstNameLabel);
-						cardPanel.add(firstNameFiald);
-						
-						cardPanel.add(lastNameLabel);
-						cardPanel.add(lastNameFiald);
-						
-						cardPanel.add(emailLabel);
-						cardPanel.add(emailFiald);
-						
-						cardPanel.add(branchList);
-						
-					}
-					
-					public JPanel getAddJPanel() 
-					{
-						return this;
-					}
-					
-					public JPanel getAddStudentPanel() 
-					{
-						return cardPanel;
-					} 
-					
-					public static void createAddStudentPanel() 
-					{
-						Student std = new Student(firstNameFiald.getText(),lastNameFiald.getText(),emailFiald.getText());
-//						MainJFrame.students.add();
-					} 
-				}
-	
-	
-	
-	public static void updateStd(ArrayList<Student> students) 
-	{
-		System.out.print("Enter the student's ID : ");
-		Scanner in = new Scanner(System.in);
-		String idNumber = in.next();
-		String ID_to_Search = String.format("%08d", idNumber);
-		
-		Student student = StudentHelper.searchStd(students);
-		
-		
-		try
-		{
-			System.out.print("Enter the new firstname: ");
-			String newFirstName = in.next();
-			System.out.print("Enter the new lastname: ");
-			String newLastName = in.next();
-			
-			student.setFirstName(newFirstName);
-			student.setLastName(newLastName);
-		} catch(Exception e)
-		{
-			System.out.println("ERROR : Maybe you enter a wrong type");
-		}
-			
-			
-		in.close();
-	}
 
-//	public static void deleteStd(ArrayList<String id)
+//				class lolAddStudent extends JPanel
+//				{
+//					private static JPanel cardPanel;
+//					private static JLabel firstNameLabel;
+//					private static JTextField firstNameFiald;
+//					private static JLabel lastNameLabel;
+//					private static JTextField lastNameFiald;
+//					private static JLabel emailLabel;
+//					private static JTextField emailFiald;
+//					private static JList<String> branchList; 
+//					
+//			//		static 
+//			//		{
+//			//			
+//			//			
+//			//		}
+//					
+//					public lolAddStudent() 
+//					{
+//						cardPanel = new JPanel();
+//						cardPanel.setBackground(null);
+//						cardPanel.setLayout(new GridLayout(4,2,20,20));
+//						
+//						firstNameLabel= new JLabel("First name");
+//						firstNameFiald = new JTextField();
+//						
+//						lastNameLabel = new JLabel("Last name");
+//						lastNameFiald = new JTextField();
+//						
+//						emailLabel = new JLabel("Email");
+//						emailFiald = new JTextField();
+//						
+//						branchList = new JList<String>();
+//						
+//						cardPanel.add(firstNameLabel);
+//						cardPanel.add(firstNameFiald);
+//						
+//						cardPanel.add(lastNameLabel);
+//						cardPanel.add(lastNameFiald);
+//						
+//						cardPanel.add(emailLabel);
+//						cardPanel.add(emailFiald);
+//						
+//						cardPanel.add(branchList);
+//						
+//					}
+//					
+//					public JPanel getAddJPanel() 
+//					{
+//						return this;
+//					}
+//					
+//					public JPanel getAddStudentPanel() 
+//					{
+//						return cardPanel;
+//					} 
+//					
+//					public static void createAddStudentPanel() 
+//					{
+//						Student std = new Student(firstNameFiald.getText(),lastNameFiald.getText(),emailFiald.getText());
+////						MainJFrame.students.add();
+//					} 
+//				}
+//	
+//	
+//	
+//	public static void updateStd(ArrayList<Student> students) 
 //	{
-//		for(Student std:students) 
+//		System.out.print("Enter the student's ID : ");
+//		Scanner in = new Scanner(System.in);
+//		String idNumber = in.next();
+//		String ID_to_Search = String.format("%08d", idNumber);
+//		
+//		Student student = StudentHelper.searchStd(students);
+//		
+//		
+//		try
 //		{
-//			if(std.getId().equals(id)) 
-//			{
-//				
-//			}
+//			System.out.print("Enter the new firstname: ");
+//			String newFirstName = in.next();
+//			System.out.print("Enter the new lastname: ");
+//			String newLastName = in.next();
+//			
+//			student.setFirstName(newFirstName);
+//			student.setLastName(newLastName);
+//		} catch(Exception e)
+//		{
+//			System.out.println("ERROR : Maybe you enter a wrong type");
+//		}
+//			
+//			
+//		in.close();
+//	}
+//	
+//	public static void showStudents(ArrayList<Student> students) 
+//	{
+//		for(Student student:students) 
+//		{
+//			System.out.println("\nStudent's ID : "+ student.getId());
+//			System.out.println("\nFirst name : "+ student.getFirstName());
+//			System.out.println("\nLast name : "+ student.getLastName());
+//			System.out.println("\n================================\n");
+//			
 //		}
 //	}
-	
-	
-	public static void showStudents(ArrayList<Student> students) 
-	{
-		for(Student student:students) 
-		{
-			System.out.println("\nStudent's ID : "+ student.getId());
-			System.out.println("\nFirst name : "+ student.getFirstName());
-			System.out.println("\nLast name : "+ student.getLastName());
-			System.out.println("\n================================\n");
-			
-		}
-	}
-	
-	public static void searchStudents(ArrayList<Student> students) 
-	{
-		Student std = StudentHelper.searchStd(students);
-		try 
-		{
-			if(std == null)
-			{
-				System.out.println("try with another ID.");
-			}else 
-			{
-				System.out.println("\nStudent's ID : "+ std.getId());
-				System.out.println("\nFirst name : "+ std.getFirstName());
-				System.out.println("\nLast name : "+ std.getLastName());
-				System.out.println("\n================================\n");
-			}
-		}catch(Exception e) 
-		{
-			System.out.println("Enable to find data");
-		}
-		
-		
-	}
+//	
+//	public static void searchStudents(ArrayList<Student> students) 
+//	{
+//		Student std = StudentHelper.searchStd(students);
+//		try 
+//		{
+//			if(std == null)
+//			{
+//				System.out.println("try with another ID.");
+//			}else 
+//			{
+//				System.out.println("\nStudent's ID : "+ std.getId());
+//				System.out.println("\nFirst name : "+ std.getFirstName());
+//				System.out.println("\nLast name : "+ std.getLastName());
+//				System.out.println("\n================================\n");
+//			}
+//		}catch(Exception e) 
+//		{
+//			System.out.println("Enable to find data");
+//		}
+//		
+//		
+//	}
 	
 }
 
