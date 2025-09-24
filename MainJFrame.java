@@ -674,6 +674,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
+	
 	public JPanel getDeleteStudentPanel() 
 	{
 		JPanel modefyStdPanel = new JPanel();
@@ -732,7 +733,7 @@ public class MainJFrame extends JFrame implements ActionListener {
     	            if (id >= 0 && id < students.size()) {
     	                Student studentToDelete = students.get(id);
     	                
-    	                // Confirm deletion
+// Confirm deletion
     	                int confirm = JOptionPane.showConfirmDialog(
     	                    cardPanel,
     	                    "Are you sure you want to delete:\n" +
@@ -786,7 +787,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.add(article4);
 
         return modefyStdPanel;
-		
 
 	}
 }
