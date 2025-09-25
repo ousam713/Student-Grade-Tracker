@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -192,14 +194,18 @@ public class MainJFrame extends JFrame implements ActionListener {
 		cardPanel.add(searchStdPanel, "SearchStudentPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
+		
+//		<< << << create JPanel : modifyStdPanel
+		JPanel gradesStdPanel = createManageGradesPanel();
+		cardPanel.add(gradesStdPanel, "ManageGradesPanel");
+//		>> >> >> add JPanel : modifyStdPanel
+		
+		
 		manuPanel.add(cardPanel, BorderLayout.CENTER);
 //		>> >> add JPanel : cardPanel
 		
 		
-//		<< S
-		
-
-		
+//		<< add JPanel : manuPanel
 		getContentPane().add(manuPanel, BorderLayout.CENTER);
 //		>> add JPanel : manuPanel
 		cardLayout.show(cardPanel, "MainMenu");
@@ -265,6 +271,9 @@ public class MainJFrame extends JFrame implements ActionListener {
 		ImageIcon icon3 = getResizedIcon("icons/manage_grades.png");
 		JButton manageGradesBtn = new JButton(icon3);
 		removeMarginBtn(manageGradesBtn,icon1);
+		manageGradesBtn.addActionListener(e->{
+			cardLayout.show(cardPanel, "ManageGradesPanel");
+		});
 		
 		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
@@ -737,7 +746,6 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
-	
 	public JPanel getDeleteStudentPanel() 
 	{
 		JPanel modefyStdPanel = new JPanel();
@@ -845,6 +853,169 @@ public class MainJFrame extends JFrame implements ActionListener {
         modefyStdPanel.add(article4);
 
         return modefyStdPanel;
+	}
+	
+	
+	
+	
+	
+//	ll
+	private JPanel createManageGradesPanel() 
+	{
+	    JPanel gradesPanel = new JPanel(new BorderLayout(10, 10));
+	    gradesPanel.setBackground(null);
+
+	    // Title
+	    JLabel titleLabel = new JLabel("Manage Student Grades", JLabel.CENTER);
+	    titleLabel.setFont(new Font("Serif", Font.BOLD, 18));
+	    gradesPanel.add(titleLabel, BorderLayout.NORTH);
+
+	    // Main content panel
+	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+	    contentPanel.setBackground(null);
+
+	    // Student selection
+	    JPanel studentPanel = new JPanel(new BorderLayout(10, 5));
+	    studentPanel.setBackground(null);
+	    JLabel studentLabel = new JLabel("Select Student:");
+	    studentLabel.setPreferredSize(new Dimension(120, 30));
+	    
+	    // Create dropdown of students
+	    JComboBox<String> studentComboBox = new JComboBox<>();
+	    updateStudentComboBox(studentComboBox); // Method to populate dropdown
+	    
+	    studentPanel.add(studentLabel, BorderLayout.WEST);
+	    studentPanel.add(studentComboBox, BorderLayout.CENTER);
+
+	    // Subject input
+	    JPanel subjectPanel = new JPanel(new BorderLayout(10, 5));
+	    subjectPanel.setBackground(null);
+	    JLabel subjectLabel = new JLabel("Subject:");
+	    subjectLabel.setPreferredSize(new Dimension(120, 30));
+	    JTextField subjectField = new JTextField();
+	    subjectPanel.add(subjectLabel, BorderLayout.WEST);
+	    subjectPanel.add(subjectField, BorderLayout.CENTER);
+
+	    // Grade input
+	    JPanel gradePanel = new JPanel(new BorderLayout(10, 5));
+	    gradePanel.setBackground(null);
+	    JLabel gradeLabel = new JLabel("Grade (0-100):");
+	    gradeLabel.setPreferredSize(new Dimension(120, 30));
+	    JTextField gradeField = new JTextField();
+	    gradePanel.add(gradeLabel, BorderLayout.WEST);
+	    gradePanel.add(gradeField, BorderLayout.CENTER);
+
+	    // Buttons panel
+	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+	    buttonPanel.setBackground(null);
+	    
+	    JButton addGradeBtn = new JButton("Add Grade");
+	    JButton viewGradesBtn = new JButton("View Grades");
+	    JButton returnBtn = new JButton("Return to Main Menu");
+
+	    buttonPanel.add(addGradeBtn);
+	    buttonPanel.add(viewGradesBtn);
+	    buttonPanel.add(returnBtn);
+
+	    // Add all panels to content
+	    contentPanel.add(studentPanel);
+	    contentPanel.add(subjectPanel);
+	    contentPanel.add(gradePanel);
+	    contentPanel.add(buttonPanel);
+
+	    gradesPanel.add(contentPanel, BorderLayout.CENTER);
+
+	    // Button actions
+	    addGradeBtn.addActionListener(e -> {
+	        addGradeToStudent(studentComboBox, subjectField, gradeField);
+	    });
+	    
+	    viewGradesBtn.addActionListener(e -> {
+	        viewStudentGrades(studentComboBox);
+	    });
+	    
+	    returnBtn.addActionListener(e -> {
+	        cardLayout.show(cardPanel, "MainManu");
+	    });
+
+	    return gradesPanel;
+	}
+	
+	
+	
+
+	
+	private void updateStudentComboBox(JComboBox<String> comboBox) {
+	    comboBox.removeAllItems();
+	    for (Student student : students) {
+	        String displayText = student.getFirstName() + " " + student.getLastName() + 
+	                           " (ID: " + students.indexOf(student) + ")";
+	        comboBox.addItem(displayText);
+	    }
+	}
+
+	private void addGradeToStudent(JComboBox<String> studentComboBox, JTextField subjectField, JTextField gradeField) {
+	    String subject = subjectField.getText().trim();
+	    String gradeStr = gradeField.getText().trim();
+	    
+	    if (subject.isEmpty() || gradeStr.isEmpty()) {
+	        JOptionPane.showMessageDialog(cardPanel, "Please fill in both subject and grade", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    
+	    try {
+	        double grade = Double.parseDouble(gradeStr);
+	        
+	        if (grade < 0 || grade > 100) {
+	            JOptionPane.showMessageDialog(cardPanel, "Grade must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+	        
+	        // Get selected student
+	        int selectedIndex = studentComboBox.getSelectedIndex();
+	        if (selectedIndex >= 0 && selectedIndex < students.size()) {
+	            Student student = students.get(selectedIndex);
+	            student.addGrade(subject, grade);
+	            
+	            JOptionPane.showMessageDialog(cardPanel, 
+	                "Grade added successfully!\n" +
+	                "Student: " + student.getFirstName() + " " + student.getLastName() + "\n" +
+	                "Subject: " + subject + "\n" +
+	                "Grade: " + grade, 
+	                "Success", 
+	                JOptionPane.INFORMATION_MESSAGE);
+	            
+	            // Clear fields
+	            subjectField.setText("");
+	            gradeField.setText("");
+	        }
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(cardPanel, "Please enter a valid number for grade", "Error", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
+	private void viewStudentGrades(JComboBox<String> studentComboBox) {
+	    int selectedIndex = studentComboBox.getSelectedIndex();
+	    if (selectedIndex >= 0 && selectedIndex < students.size()) {
+	        Student student = students.get(selectedIndex);
+	        Map<String, Double> grades = student.getGrades();
+	        
+	        if (grades.isEmpty()) {
+	            JOptionPane.showMessageDialog(cardPanel, "No grades found for this student", "Info", JOptionPane.INFORMATION_MESSAGE);
+	            return;
+	        }
+	        
+	        StringBuilder gradesText = new StringBuilder();
+	        gradesText.append("Grades for ").append(student.getFirstName()).append(" ").append(student.getLastName()).append(":\n\n");
+	        
+	        for (Map.Entry<String, Double> entry : grades.entrySet()) {
+	            gradesText.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+	        }
+	        
+	        gradesText.append("\nAverage Grade: ").append(String.format("%.2f", student.getAverageGrade()));
+	        
+	        JOptionPane.showMessageDialog(cardPanel, gradesText.toString(), "Student Grades", JOptionPane.INFORMATION_MESSAGE);
+	    }
 	}
 
 }

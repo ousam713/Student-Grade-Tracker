@@ -23,7 +23,7 @@ public class Student extends JPanel
 	private String lastName;
 	private String email;
 	private String [] subjects = {"Programming with Java","Mathematics","English"};
-	private Map<String , Float>  grades = new HashMap<>();
+	private Map<String , Double>  grades = new HashMap<>();
 	private float avg;
 	
 	
@@ -31,7 +31,7 @@ public class Student extends JPanel
 	{
         for (String subject : subjects) 
         {
-            grades.put(subject, -1.0f); // Initialize each grade to -1 <=> the grades are not input yet
+            grades.put(subject, -1.0); // Initialize each grade to -1 <=> the grades are not input yet
         }
     }
 	
@@ -95,6 +95,37 @@ public class Student extends JPanel
 	{
 		return this.email;
 	}
+	
+	
+	 // Add grade method
+    public void addGrade(String subject, double grade) {
+        grades.put(subject, grade);
+    }
+    
+    // Get grade method
+    public Double getGrade(String subject) {
+        return grades.get(subject);
+    }
+    
+    
+    // Calculate average grade
+    public double getAverageGrade() {
+        if (grades.isEmpty()) return 0.0;
+        double sum = 0.0;
+        for (double grade : grades.values()) {
+            sum += grade;
+        }
+        return sum / grades.size();
+    }
+    
+    // Getters and setters...
+    public Map<String, Double> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Map<String, Double> grades) {
+        this.grades = grades;
+    }
 	
 }
 
