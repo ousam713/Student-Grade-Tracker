@@ -20,7 +20,9 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
@@ -38,6 +40,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import java.awt.Component;
 import java.awt.Cursor;
@@ -1081,6 +1084,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    }
 	}
 	
+	/*
 	
 	/////////////////// 2. create statistics panel
 	
@@ -1274,7 +1278,191 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    return new String[]{"ID", "First Name", "Last Name", "Email", "Math", "JAVA Programming", "English", "Average"};
 	} 
 	
+	*/
 	
+	
+	/////////////////// 1. Statistics Panel
+	private JPanel getStatsticsPanel() 
+	{
+	    JPanel statsPanel = new JPanel(new BorderLayout(10, 10));
+	    statsPanel.setBackground(null);
+
+	    // Title
+	    JLabel titleLabel = new JLabel("Student Statistics", JLabel.CENTER);
+	    titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
+	    statsPanel.add(titleLabel, BorderLayout.NORTH);
+
+	    // Create scrollable table
+	    JTable studentTable = createStudentTable();
+	    JScrollPane scrollPane = new JScrollPane(studentTable);
+	    scrollPane.setPreferredSize(new Dimension(800, 400));
+	    
+	    // Statistics panel
+	    JPanel statsInfoPanel = createStatisticsInfoPanel();
+	    
+	    statsPanel.add(scrollPane, BorderLayout.CENTER);
+	    statsPanel.add(statsInfoPanel, BorderLayout.SOUTH);
+
+	    // Return button
+	    JButton returnBtn = new JButton("Return to Main Menu");
+	    returnBtn.addActionListener(e -> cardLayout.show(cardPanel, "MainManu"));
+	    
+	    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	    bottomPanel.add(returnBtn);
+	    statsPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+	    return statsPanel;
+	}
+	
+	
+	/////////////////// 2. Create table
+	private JTable createStudentTable() 
+	{
+	    String[] columnNames = {"ID", "First Name", "Last Name", "Email", "Math", "JAVA Programming", "English", "Average"};
+	    
+	    Object[][] data = getAllStudentData();
+	    
+	    DefaultTableModel model = new DefaultTableModel(data, columnNames) 
+	    {
+	        @Override
+	        public boolean isCellEditable(int row, int column) {
+	            return false; // Make table non-editable
+	        }
+	        
+	        @Override
+	        public Class<?> getColumnClass(int columnIndex) {
+	            // Return appropriate class for each column for better rendering
+	            if (columnIndex == 0) return Integer.class; // ID
+	            if (columnIndex >= 4 && columnIndex <= 6) return Double.class; // Grades
+	            if (columnIndex == 7) return Double.class; // Average
+	            return String.class; // Names and email
+	        }
+	    };
+	    
+	    JTable table = new JTable(model);
+	    
+	    // Customize table appearance
+	    table.setFillsViewportHeight(true);
+	    table.setRowHeight(30);
+	    table.setAutoCreateRowSorter(true); // Enable sorting
+	    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
+	    // Customize header
+	    JTableHeader header = table.getTableHeader();
+	    header.setFont(new Font("SansSerif", Font.BOLD, 14));
+	    header.setBackground(Color.LIGHT_GRAY);
+	    header.setForeground(Color.BLACK);
+	    
+	    // Center align numeric columns
+	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+	    
+	    for (int i = 4; i <= 7; i++) { // Grade columns and average
+	        table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+	    }
+	    
+	    // Set column widths
+	    table.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
+	    table.getColumnModel().getColumn(1).setPreferredWidth(100); // First Name
+	    table.getColumnModel().getColumn(2).setPreferredWidth(100); // Last Name
+	    table.getColumnModel().getColumn(3).setPreferredWidth(150); // Email
+	    table.getColumnModel().getColumn(4).setPreferredWidth(80);  // Math
+	    table.getColumnModel().getColumn(5).setPreferredWidth(120); // JAVA Programming
+	    table.getColumnModel().getColumn(6).setPreferredWidth(80);  // English
+	    table.getColumnModel().getColumn(7).setPreferredWidth(80);  // Average
+	    
+	    return table;
+	}
+	
+		
+	/////////////////// 3. Get student data
+	private Object[][] getAllStudentData() 
+	{
+    return students.stream()
+            .map(student -> new Object[]{
+                students.indexOf(student), // ID
+                student.getFirstName(),
+                student.getLastName(),
+                student.getEmail(),
+                student.getGrade("Math"),
+                student.getGrade("JAVA Programming"),
+                student.getGrade("English"),
+                student.getAverage()
+            })
+            .toArray(Object[][]::new);
+}
+		
+	/////////////////// 4. statstics info panel
+	private JPanel createStatisticsInfoPanel() 
+	{
+	    JPanel statsPanel = new JPanel(new GridLayout(2, 3, 10, 5));
+	    statsPanel.setBorder(BorderFactory.createTitledBorder("Class Statistics"));
+	    statsPanel.setBackground(null);
+	    
+	    // Calculate statistics using Streams
+	    DoubleSummaryStatistics avgStats = students.stream()
+	            .mapToDouble(Student::getAverage)
+	            .summaryStatistics();
+	    
+	    // Calculate subject averages
+	    double mathAvg = calculateSubjectAverage("Math");
+	    double javaAvg = calculateSubjectAverage("JAVA Programming");
+	    double englishAvg = calculateSubjectAverage("English");
+	    
+	    // First row: Overall statistics
+	    JLabel maxLabel = new JLabel(String.format("Max Average: %.2f", avgStats.getMax()));
+	    JLabel minLabel = new JLabel(String.format("Min Average: %.2f", avgStats.getMin()));
+	    JLabel avgLabel = new JLabel(String.format("Class Average: %.2f", avgStats.getAverage()));
+	    
+	    // Second row: Subject averages
+	    JLabel mathLabel = new JLabel(String.format("Math Avg: %.2f", mathAvg));
+	    JLabel javaLabel = new JLabel(String.format("Java Avg: %.2f", javaAvg));
+	    JLabel englishLabel = new JLabel(String.format("English Avg: %.2f", englishAvg));
+	    
+	    // Style the labels
+	    Font statsFont = new Font("SansSerif", Font.BOLD, 12);
+	    Color darkBlue = new Color(0, 0, 139);
+	    
+	    for (JLabel label : new JLabel[]{maxLabel, minLabel, avgLabel, mathLabel, javaLabel, englishLabel}) {
+	        label.setFont(statsFont);
+	        label.setHorizontalAlignment(JLabel.CENTER);
+	        label.setForeground(darkBlue);
+	    }
+	    
+	    statsPanel.add(maxLabel);
+	    statsPanel.add(minLabel);
+	    statsPanel.add(avgLabel);
+	    statsPanel.add(mathLabel);
+	    statsPanel.add(javaLabel);
+	    statsPanel.add(englishLabel);
+	    
+	    return statsPanel;
+	}
+	
+		
+	/////////////////// 5. Helper method to calculate subject averages
+	private double calculateSubjectAverage(String subject) 
+	{
+	    DoubleSummaryStatistics stats = students.stream()
+	            .map(student -> student.getGrade(subject))
+	            .filter(grade -> grade != null)
+	            .mapToDouble(Double::doubleValue)
+	            .summaryStatistics();
+	    
+	    return stats.getCount() > 0 ? stats.getAverage() : 0.0;
+	}
+	
+	
+		
+	/////////////////// 6. refresh
+	
+	
+	
+	/////////////////// 7.
+	
+	
+	
+	 
 	
 	
 }
