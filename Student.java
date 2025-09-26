@@ -22,7 +22,7 @@ public class Student extends JPanel
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String [] subjects = {"Programming with Java","Mathematics","English"};
+	private static String [] subjects = {"Programming with Java","Mathematics","English"};
 	private Map<String , Double>  grades = new HashMap<>();
 	private float avg;
 	
@@ -52,7 +52,11 @@ public class Student extends JPanel
 		count++;
 	}
 	
-	
+	public static String[] getSubjects () 
+	{
+		return subjects;
+	}
+		
 	// Getters & Setters
 	public int getId() 
 	{

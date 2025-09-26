@@ -546,7 +546,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         	        article1.setVisible(true);
         	        article2.setVisible(true);
         	        article3.setVisible(true);
-        	        article4.setVisible(true);
         	    } else {
         	        JOptionPane.showMessageDialog(this, "Student with ID " + id + " not found", 
         	                                    "Not Found", JOptionPane.WARNING_MESSAGE);
@@ -592,6 +591,10 @@ public class MainJFrame extends JFrame implements ActionListener {
         	}
         });
         returnBtn.addActionListener(e->{
+        	article1.setVisible(false);
+            article2.setVisible(false);
+            article3.setVisible(false);
+        	
         	idField.setText("");
         	firstNameField.setText("");
 	        lastNameField.setText("");
@@ -693,9 +696,6 @@ public class MainJFrame extends JFrame implements ActionListener {
 
         JButton returnBtn = new JButton("Return");
         returnBtn.setPreferredSize(new Dimension(100, 30));
-        returnBtn.addActionListener(e->{
-        	cardLayout.show(cardPanel, "MainManu");
-        });
 
         article4.add(searchBtn);
         article4.add(returnBtn);
@@ -721,7 +721,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         	        article1.setVisible(true);
         	        article2.setVisible(true);
         	        article3.setVisible(true);
-        	        article4.setVisible(true);
         	    } else {
         	        JOptionPane.showMessageDialog(this, "Student with ID " + id + " not found", 
         	                                    "Not Found", JOptionPane.WARNING_MESSAGE);
@@ -732,6 +731,17 @@ public class MainJFrame extends JFrame implements ActionListener {
         	}
         });
         
+        returnBtn.addActionListener(e->{
+        	idField.setText("");
+        	firstNameField.setText("");
+	        lastNameField.setText("");
+	        emailField.setText("");
+	        
+	        article1.setVisible(false);
+	        article2.setVisible(false);
+	        article3.setVisible(false);
+        	cardLayout.show(cardPanel, "MainManu");
+        });
 
         
         // Add all articles to main panel
@@ -846,6 +856,7 @@ public class MainJFrame extends JFrame implements ActionListener {
     	    }
         });
         returnBtn.addActionListener(e->{
+        	idField.setText("");
         	cardLayout.show(cardPanel, "ManageStudentManu");
         });
         
@@ -858,11 +869,9 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
-	
-//	ll
 	private JPanel createManageGradesPanel() 
 	{
-	    JPanel gradesPanel = new JPanel(new BorderLayout(10, 10));
+	    JPanel gradesPanel = new JPanel(new BorderLayout(40, 10));
 	    gradesPanel.setBackground(null);
 
 	    // Title
@@ -870,43 +879,58 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    titleLabel.setFont(new Font("Serif", Font.BOLD, 18));
 	    gradesPanel.add(titleLabel, BorderLayout.NORTH);
 
-	    // Main content panel
-	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+// 		<< Main content panel
+	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, 10, 60));
 	    contentPanel.setBackground(null);
 
-	    // Student selection
+	    
+//		<< << Student selection
 	    JPanel studentPanel = new JPanel(new BorderLayout(10, 5));
 	    studentPanel.setBackground(null);
-	    JLabel studentLabel = new JLabel("Select Student:");
+	    JLabel studentLabel = new JLabel("Select student:");
 	    studentLabel.setPreferredSize(new Dimension(120, 30));
 	    
 	    // Create dropdown of students
 	    JComboBox<String> studentComboBox = new JComboBox<>();
+	    studentComboBox.setMaximumSize(new Dimension(250, 30));
 	    updateStudentComboBox(studentComboBox); // Method to populate dropdown
 	    
 	    studentPanel.add(studentLabel, BorderLayout.WEST);
 	    studentPanel.add(studentComboBox, BorderLayout.CENTER);
+//	    >> >> Student Selection
 
-	    // Subject input
+	    
+// 		<< << Subject selection
 	    JPanel subjectPanel = new JPanel(new BorderLayout(10, 5));
 	    subjectPanel.setBackground(null);
-	    JLabel subjectLabel = new JLabel("Subject:");
+	    JLabel subjectLabel = new JLabel("Select subject:");
 	    subjectLabel.setPreferredSize(new Dimension(120, 30));
-	    JTextField subjectField = new JTextField();
+	    
+	    JComboBox<String> subjectComboBox = new JComboBox<>();
+	    subjectComboBox.setMaximumSize(new Dimension(250, 30));
+	    updateSubjectComboBox(subjectComboBox);
+	    
+//	    JTextField subjectField = new JTextField();
 	    subjectPanel.add(subjectLabel, BorderLayout.WEST);
-	    subjectPanel.add(subjectField, BorderLayout.CENTER);
-
-	    // Grade input
+	    subjectPanel.add(subjectComboBox, BorderLayout.CENTER);
+	    
+//	    >> >> Subject selection
+	    
+	    
+// 		<< << Grade input
 	    JPanel gradePanel = new JPanel(new BorderLayout(10, 5));
 	    gradePanel.setBackground(null);
 	    JLabel gradeLabel = new JLabel("Grade (0-100):");
 	    gradeLabel.setPreferredSize(new Dimension(120, 30));
 	    JTextField gradeField = new JTextField();
+	    gradeField.setFont(new Font("Serif", Font.BOLD, 16));
+	    gradeField.setPreferredSize(new Dimension(100,20));
 	    gradePanel.add(gradeLabel, BorderLayout.WEST);
 	    gradePanel.add(gradeField, BorderLayout.CENTER);
+//	    >> >> Grade input
 
-	    // Buttons panel
-	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+//   	<< << Buttons
+	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
 	    buttonPanel.setBackground(null);
 	    
 	    JButton addGradeBtn = new JButton("Add Grade");
@@ -916,7 +940,8 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    buttonPanel.add(addGradeBtn);
 	    buttonPanel.add(viewGradesBtn);
 	    buttonPanel.add(returnBtn);
-
+//	    >> >> Buttons
+	    
 	    // Add all panels to content
 	    contentPanel.add(studentPanel);
 	    contentPanel.add(subjectPanel);
@@ -924,10 +949,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    contentPanel.add(buttonPanel);
 
 	    gradesPanel.add(contentPanel, BorderLayout.CENTER);
+//	    >> Main content panel
 
 	    // Button actions
 	    addGradeBtn.addActionListener(e -> {
-	        addGradeToStudent(studentComboBox, subjectField, gradeField);
+	        addGradeToStudent(studentComboBox, subjectComboBox, gradeField);
 	    });
 	    
 	    viewGradesBtn.addActionListener(e -> {
@@ -945,17 +971,31 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 
 	
-	private void updateStudentComboBox(JComboBox<String> comboBox) {
+	private void updateStudentComboBox(JComboBox<String> comboBox) 
+	{
 	    comboBox.removeAllItems();
-	    for (Student student : students) {
+	    for (Student student : students) 
+	    {
 	        String displayText = student.getFirstName() + " " + student.getLastName() + 
-	                           " (ID: " + students.indexOf(student) + ")";
+	                           " (ID: " + student.getId() + ")";
+	        comboBox.addItem(displayText);
+	    }
+	}
+	
+	private void updateSubjectComboBox(JComboBox<String> comboBox) 
+	{
+	    comboBox.removeAllItems();
+	    for (String subject : Student.getSubjects()) 
+	    {
+	        String displayText = subject; 
 	        comboBox.addItem(displayText);
 	    }
 	}
 
-	private void addGradeToStudent(JComboBox<String> studentComboBox, JTextField subjectField, JTextField gradeField) {
-	    String subject = subjectField.getText().trim();
+	private void addGradeToStudent(JComboBox<String> studentComboBox, JComboBox<String> subjectComboBox, JTextField gradeField) 
+	{
+	    int subjectAtAt = subjectComboBox.getSelectedIndex();
+	    String subject = Student.getSubjects()[subjectAtAt];
 	    String gradeStr = gradeField.getText().trim();
 	    
 	    if (subject.isEmpty() || gradeStr.isEmpty()) {
@@ -966,15 +1006,16 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    try {
 	        double grade = Double.parseDouble(gradeStr);
 	        
-	        if (grade < 0 || grade > 100) {
+	        if (grade < 0 || grade > 100) 
+	        {
 	            JOptionPane.showMessageDialog(cardPanel, "Grade must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
 	        
 	        // Get selected student
-	        int selectedIndex = studentComboBox.getSelectedIndex();
-	        if (selectedIndex >= 0 && selectedIndex < students.size()) {
-	            Student student = students.get(selectedIndex);
+	        int selectedStudentIndex = studentComboBox.getSelectedIndex();
+	        if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) {
+	            Student student = students.get(selectedStudentIndex);
 	            student.addGrade(subject, grade);
 	            
 	            JOptionPane.showMessageDialog(cardPanel, 
@@ -986,21 +1027,26 @@ public class MainJFrame extends JFrame implements ActionListener {
 	                JOptionPane.INFORMATION_MESSAGE);
 	            
 	            // Clear fields
-	            subjectField.setText("");
 	            gradeField.setText("");
 	        }
-	    } catch (NumberFormatException e) {
+	    } catch (NumberFormatException e) 
+	    {
 	        JOptionPane.showMessageDialog(cardPanel, "Please enter a valid number for grade", "Error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	
+	
 
-	private void viewStudentGrades(JComboBox<String> studentComboBox) {
-	    int selectedIndex = studentComboBox.getSelectedIndex();
-	    if (selectedIndex >= 0 && selectedIndex < students.size()) {
-	        Student student = students.get(selectedIndex);
+	private void viewStudentGrades(JComboBox<String> studentComboBox) 
+	{
+	    int selectedStudentIndex = studentComboBox.getSelectedIndex();
+	    if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) 
+	    {
+	        Student student = students.get(selectedStudentIndex);
 	        Map<String, Double> grades = student.getGrades();
 	        
-	        if (grades.isEmpty()) {
+	        if (grades.isEmpty()) 
+	        {
 	            JOptionPane.showMessageDialog(cardPanel, "No grades found for this student", "Info", JOptionPane.INFORMATION_MESSAGE);
 	            return;
 	        }
@@ -1008,7 +1054,8 @@ public class MainJFrame extends JFrame implements ActionListener {
 	        StringBuilder gradesText = new StringBuilder();
 	        gradesText.append("Grades for ").append(student.getFirstName()).append(" ").append(student.getLastName()).append(":\n\n");
 	        
-	        for (Map.Entry<String, Double> entry : grades.entrySet()) {
+	        for (Map.Entry<String, Double> entry : grades.entrySet()) 
+	        {
 	            gradesText.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
 	        }
 	        
