@@ -1273,7 +1273,10 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 	    return new String[]{"ID", "First Name", "Last Name", "Email", "Math", "JAVA Programming", "English", "Average"};
 	} 
-
+	
+	
+	
+	
 }
 
 
