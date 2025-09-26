@@ -5,21 +5,27 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -30,6 +36,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import java.awt.Component;
@@ -138,11 +145,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JLabel imageLogo = new JLabel(new ImageIcon("icons/SMS.png"));
 		contentPane.add(imageLogo, BorderLayout.NORTH);
 		
-//		<<  add JPanel : cardPanel
+//		 add JPanel : cardPanel
 		JPanel manuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 //		manuPanel.setSize(300,300);
 		
-//		<< << create JPanel : cardPanel
+//		<< create JPanel : cardPanel
 		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
 		cardPanel.setBackground(null);
@@ -162,10 +169,10 @@ public class MainJFrame extends JFrame implements ActionListener {
 //		>> >> add JPanel : manuSubPanel
 		
 		
-//		<< << << create JPanel : manuSubPanel
+//		<< <<  create JPanel : manuSubPanel
 		JPanel manuSubPanel = getMainManuPanel();
 		cardPanel.add(manuSubPanel, "MainManu");
-//		>> >> >> add JPanel : manuSubPanel
+//		>> >>  add JPanel : manuSubPanel
 		
 		
 //		<< << << create JPanel : manageStdPanel
@@ -200,9 +207,14 @@ public class MainJFrame extends JFrame implements ActionListener {
 		cardPanel.add(gradesStdPanel, "ManageGradesPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
+//		<< <<  create JPanel : statistcsPanel
+		JPanel statistcsPanel = getStatsticsPanel();
+		cardPanel.add(statistcsPanel, "StatisticsPanel");
+//		>> >>  add JPanel : statistcsPanel
+		
 		
 		manuPanel.add(cardPanel, BorderLayout.CENTER);
-//		>> >> add JPanel : cardPanel
+//		>> add JPanel : cardPanel
 		
 		
 //		<< add JPanel : manuPanel
@@ -278,6 +290,9 @@ public class MainJFrame extends JFrame implements ActionListener {
 		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
 		removeMarginBtn(statisticBtn,icon1);
+		statisticBtn.addActionListener(e->{
+			cardLayout.show(cardPanel, "StatisticsPanel");
+		});
 		
 		
 		manuSubPanel.add(manageStdBtn);
@@ -869,6 +884,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	
 	
 	
+
 	private JPanel createManageGradesPanel() 
 	{
 	    JPanel gradesPanel = new JPanel(new BorderLayout(40, 10));
@@ -1064,6 +1080,199 @@ public class MainJFrame extends JFrame implements ActionListener {
 	        JOptionPane.showMessageDialog(cardPanel, gradesText.toString(), "Student Grades", JOptionPane.INFORMATION_MESSAGE);
 	    }
 	}
+	
+	
+	/////////////////// 2. create statistics panel
+	
+	public JPanel getStatsticsPanel() 
+	{
+		JPanel statsPanel = new JPanel(new BorderLayout(10, 10));
+	    statsPanel.setBackground(null);
+
+	    // Title
+	    JLabel titleLabel = new JLabel("Student Statistics", JLabel.CENTER);
+	    titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
+	    statsPanel.add(titleLabel, BorderLayout.NORTH);
+
+	    // Main content with table and statistics
+	    JPanel contentPanel = new JPanel(new BorderLayout(10, 10));
+	    
+	    // Create table
+	    JTable studentTable = createStudentTable();
+	    JScrollPane scrollPane = new JScrollPane(studentTable);
+	    scrollPane.setPreferredSize(new Dimension(800, 300));
+	    
+	    // Statistics panel
+	    JPanel statsInfoPanel = createStatisticsInfoPanel();
+	    
+	    // Pagination controls
+	    JPanel paginationPanel = createPaginationPanel(studentTable);
+	    
+	    contentPanel.add(scrollPane, BorderLayout.CENTER);
+	    contentPanel.add(statsInfoPanel, BorderLayout.SOUTH);
+	    
+	    statsPanel.add(contentPanel, BorderLayout.CENTER);
+	    statsPanel.add(paginationPanel, BorderLayout.SOUTH);
+
+	    // Return button
+	    JButton returnBtn = new JButton("Return to Main Menu");
+	    returnBtn.addActionListener(e -> cardLayout.show(cardPanel, "MainManu"));
+	    
+	    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	    bottomPanel.add(returnBtn);
+	    statsPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+	    return statsPanel;
+	}
+	
+	
+	
+	/////////////////// 3. create students panel 
+	private JTable createStudentTable() 
+	{
+	    String[] columnNames = {"ID", "First Name", "Last Name", "Email", "Math", "JAVA Programming", "English", "Average"};
+	    
+	    Object[][] data = getStudentData(0, 5); // Start with first 5 students
+	    
+	    DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+	        @Override
+	        public boolean isCellEditable(int row, int column) {
+	            return false; // Make table non-editable
+	        }
+	    };
+	    
+	    JTable table = new JTable(model);
+	    table.setFillsViewportHeight(true);
+	    table.setRowHeight(25);
+	    table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
+	    
+	    return table;
+	}
+	
+	
+	/////////////////// 4. get student data
+	private Object[][] getStudentData(int from, int to) 
+	{
+	    int pageSize = to - from;
+	    List<Student> pageStudents = students.stream()
+	            .skip(from)
+	            .limit(pageSize)
+	            .collect(Collectors.toList());
+	    
+	    Object[][] data = new Object[pageStudents.size()][8];
+	    
+	    for (int i = 0; i < pageStudents.size(); i++) {
+	        Student student = pageStudents.get(i);
+	        data[i][0] = students.indexOf(student); // ID
+	        data[i][1] = student.getFirstName();
+	        data[i][2] = student.getLastName();
+	        data[i][3] = student.getEmail();
+	        data[i][4] = formatGrade(student.getGrade("Math"));
+	        data[i][5] = formatGrade(student.getGrade("JAVA Programming"));
+	        data[i][6] = formatGrade(student.getGrade("English"));
+	        data[i][7] = String.format("%.2f", student.getAverage());
+	    }
+	    
+	    return data;
+	}
+	private String formatGrade(Double grade) 
+	{
+	    return grade != null ? String.format("%.2f", grade) : "N/A";
+	}
+	
+	
+	
+	
+	/////////////////// 5. pagination
+	private JPanel createPaginationPanel(JTable table) 
+	{
+	    JPanel paginationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+	    paginationPanel.setBackground(null);
+	    
+	    JButton prevBtn = new JButton("Previous 5");
+	    JButton nextBtn = new JButton("Next 5");
+	    JLabel pageLabel = new JLabel("Page 1");
+	    
+	    // Pagination state
+	    int[] currentPage = {0};
+	    int pageSize = 5;
+	    
+	    prevBtn.addActionListener(e -> {
+	        if (currentPage[0] >= pageSize) 
+	        {
+	            currentPage[0] -= pageSize;
+	            updateTable(table, currentPage[0], pageSize, pageLabel);
+	        }
+	    });
+	    
+	    nextBtn.addActionListener(e -> {
+	        if (currentPage[0] + pageSize < students.size()) 
+	        {
+	            currentPage[0] += pageSize;
+	            updateTable(table, currentPage[0], pageSize, pageLabel);
+	        }
+	    });
+	    
+	    paginationPanel.add(prevBtn);
+	    paginationPanel.add(pageLabel);
+	    paginationPanel.add(nextBtn);
+	    
+	    return paginationPanel;
+	}
+
+	private void updateTable(JTable table, int from, int pageSize, JLabel pageLabel) {
+	    int pageNumber = (from / pageSize) + 1;
+	    pageLabel.setText("Page " + pageNumber);
+	    
+	    Object[][] newData = getStudentData(from, from + pageSize);
+	    DefaultTableModel model = (DefaultTableModel) table.getModel();
+	    model.setDataVector(newData, getColumnNames());
+	}
+	
+	
+	
+	
+	
+	/////////////////// 6. create statistics information panel
+	private JPanel createStatisticsInfoPanel() 
+	{
+	    JPanel statsPanel = new JPanel(new GridLayout(1, 3, 10, 5));
+	    statsPanel.setBorder(BorderFactory.createTitledBorder("Class Statistics"));
+	    statsPanel.setBackground(null);
+	    
+	    // Calculate statistics using Streams
+	    DoubleSummaryStatistics stats = students.stream()
+	            .mapToDouble(Student::getAverage)
+	            .summaryStatistics();
+	    
+	    JLabel maxLabel = new JLabel(String.format("Max Average: %.2f", stats.getMax()));
+	    JLabel minLabel = new JLabel(String.format("Min Average: %.2f", stats.getMin()));
+	    JLabel avgLabel = new JLabel(String.format("Class Average: %.2f", stats.getAverage()));
+	    
+	    // Style the labels
+	    Font statsFont = new Font("SansSerif", Font.BOLD, 14);
+	    maxLabel.setFont(statsFont);
+	    minLabel.setFont(statsFont);
+	    avgLabel.setFont(statsFont);
+	    
+	    maxLabel.setHorizontalAlignment(JLabel.CENTER);
+	    minLabel.setHorizontalAlignment(JLabel.CENTER);
+	    avgLabel.setHorizontalAlignment(JLabel.CENTER);
+	    
+	    statsPanel.add(maxLabel);
+	    statsPanel.add(minLabel);
+	    statsPanel.add(avgLabel);
+	    
+	    return statsPanel;
+	}
+	
+	
+	
+	/////////////////// 7. helper method for column names
+	private String[] getColumnNames() 
+	{
+	    return new String[]{"ID", "First Name", "Last Name", "Email", "Math", "JAVA Programming", "English", "Average"};
+	} 
 
 }
 

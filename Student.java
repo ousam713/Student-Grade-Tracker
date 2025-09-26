@@ -22,7 +22,7 @@ public class Student extends JPanel
 	private String firstName;
 	private String lastName;
 	private String email;
-	private static String [] subjects = {"Programming with Java","Mathematics","English"};
+	private static String [] subjects = {"JAVA Programming","Mathematics","English"};
 	private Map<String , Double>  grades = new HashMap<>();
 	private float avg;
 	
@@ -129,6 +129,18 @@ public class Student extends JPanel
 
     public void setGrades(Map<String, Double> grades) {
         this.grades = grades;
+    }
+    
+    public Double getGradeOrdefault(String subject) 
+    {
+        return grades.getOrDefault(subject, null);
+    }
+    
+    public double getAverage() 
+    {
+        if (grades.isEmpty()) return 0.0;
+        double sum = grades.values().stream().mapToDouble(Double::doubleValue).sum();
+        return sum / grades.size();
     }
 	
 }
