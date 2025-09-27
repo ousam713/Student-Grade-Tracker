@@ -310,7 +310,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
-		removeMarginBtn(statisticBtn,icon1); // this method change the background color
+		removeMarginBtn(statisticBtn,icon1);
 		statisticBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "StatisticsPanel");
 		});
