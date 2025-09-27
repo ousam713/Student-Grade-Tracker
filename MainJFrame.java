@@ -207,6 +207,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 //		<< << << create JPanel : modifyStdPanel
 		JPanel gradesStdPanel = createManageGradesPanel();
+		gradesStdPanel.setSize(new Dimension(500,300));
 		cardPanel.add(gradesStdPanel, "ManageGradesPanel");
 //		>> >> >> add JPanel : modifyStdPanel
 		
@@ -275,6 +276,13 @@ public class MainJFrame extends JFrame implements ActionListener {
 		manageStdBtn.addActionListener(event->{
 			cardLayout.show(cardPanel, "ManageStudentManu");
 		});
+		JLabel manageStdFieald = new JLabel("Manage students");
+		JPanel manageStdPanel = new JPanel();
+		manageStdPanel.setLayout(new BoxLayout(manageStdPanel, BoxLayout.Y_AXIS));
+		manageStdPanel.add(manageStdBtn);
+		manageStdPanel.add(manageStdFieald);
+		
+		
 		//
 		ImageIcon icon2 = getResizedIcon("icons/search_std.png");
 		JButton searchStdBtn = new JButton(icon2);
@@ -282,26 +290,41 @@ public class MainJFrame extends JFrame implements ActionListener {
 		searchStdBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "SearchStudentPanel");
 		});
+		JLabel searchStdFieald = new JLabel("Manage students");
+		JPanel searchStdPanel = new JPanel();
+		searchStdPanel.setLayout(new BoxLayout(searchStdPanel, BoxLayout.Y_AXIS));
+		searchStdPanel.add(searchStdBtn);
+		searchStdPanel.add(searchStdFieald);
 		
 		ImageIcon icon3 = getResizedIcon("icons/manage_grades.png");
 		JButton manageGradesBtn = new JButton(icon3);
-		removeMarginBtn(manageGradesBtn,icon1);
+		removeMarginBtn(manageGradesBtn,icon3);
 		manageGradesBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "ManageGradesPanel");
 		});
+		JLabel manageGradesFieald = new JLabel("Manage students");
+		JPanel manageGradesPanel = new JPanel();
+		manageGradesPanel.setLayout(new BoxLayout(manageGradesPanel, BoxLayout.Y_AXIS));
+		manageGradesPanel.add(manageGradesBtn);
+		manageGradesPanel.add(manageGradesFieald);
 		
 		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
 		JButton statisticBtn = new JButton(icon4);
-		removeMarginBtn(statisticBtn,icon1);
+		removeMarginBtn(statisticBtn,icon1); // this method change the background color
 		statisticBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "StatisticsPanel");
 		});
+		JLabel statisticFieald = new JLabel("Manage students");
+		JPanel statisticPanel = new JPanel();
+		statisticPanel.setLayout(new BoxLayout(statisticPanel, BoxLayout.Y_AXIS));
+		statisticPanel.add(statisticBtn);
+		statisticPanel.add(statisticFieald);
 		
 		
-		manuSubPanel.add(manageStdBtn);
-		manuSubPanel.add(searchStdBtn);
-		manuSubPanel.add(manageGradesBtn);
-		manuSubPanel.add(statisticBtn);
+		manuSubPanel.add(manageStdPanel);
+		manuSubPanel.add(searchStdPanel);
+		manuSubPanel.add(manageGradesPanel);
+		manuSubPanel.add(statisticPanel);
 		
 		return manuSubPanel;
 	}
@@ -362,12 +385,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         addStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
 
         // Article 1
-        JPanel article1 = new JPanel(new BorderLayout(10, 5));
+        JPanel article1 = new JPanel();
         article1.setBackground(null);
 
         JLabel firstNameLabel = new JLabel("First name:");
         firstNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField firstNameField = new JTextField();
+        firstNameField.setPreferredSize(new Dimension(120,30));
         
         firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -383,7 +407,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         JLabel lastNameLabel = new JLabel("Last name:");
         lastNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField lastNameField = new JTextField();
-        
+        lastNameField.setPreferredSize(new Dimension(120,30));
         lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
         article2.add(lastNameLabel, BorderLayout.WEST);
@@ -398,7 +422,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setPreferredSize(new Dimension(100, 30));
         JTextField emailField = new JTextField();
-        
+        emailField.setPreferredSize(new Dimension(120,30));
         emailField.setFont(new Font("Serif", Font.BOLD, 14));
 
         article3.add(emailLabel, BorderLayout.WEST);
@@ -890,7 +914,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 
 	private JPanel createManageGradesPanel() 
 	{
-	    JPanel gradesPanel = new JPanel(new BorderLayout(40, 10));
+	    JPanel gradesPanel = new JPanel(new BorderLayout(0, 0));
 	    gradesPanel.setBackground(null);
 
 	    // Title
@@ -899,53 +923,55 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    gradesPanel.add(titleLabel, BorderLayout.NORTH);
 
 // 		<< Main content panel
-	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, 10, 60));
+	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, -10, 0));
 	    contentPanel.setBackground(null);
 
+	    JPanel boxLayoutPanel = new JPanel();
+	    boxLayoutPanel.setLayout(new BoxLayout(boxLayoutPanel, BoxLayout.Y_AXIS));
 	    
 //		<< << Student selection
-	    JPanel studentPanel = new JPanel(new BorderLayout(10, 5));
+	    JPanel studentPanel = new JPanel();
 	    studentPanel.setBackground(null);
 	    JLabel studentLabel = new JLabel("Select student:");
 	    studentLabel.setPreferredSize(new Dimension(120, 30));
 	    
 	    // Create dropdown of students
 	    JComboBox<String> studentComboBox = new JComboBox<>();
-	    studentComboBox.setMaximumSize(new Dimension(250, 30));
+	    studentComboBox.setPreferredSize(new Dimension(200, 30));
 	    updateStudentComboBox(studentComboBox); // Method to populate dropdown
 	    
-	    studentPanel.add(studentLabel, BorderLayout.WEST);
-	    studentPanel.add(studentComboBox, BorderLayout.CENTER);
+	    studentPanel.add(studentLabel);
+	    studentPanel.add(studentComboBox);
 //	    >> >> Student Selection
 
 	    
 // 		<< << Subject selection
-	    JPanel subjectPanel = new JPanel(new BorderLayout(10, 5));
+	    JPanel subjectPanel = new JPanel();
 	    subjectPanel.setBackground(null);
 	    JLabel subjectLabel = new JLabel("Select subject:");
 	    subjectLabel.setPreferredSize(new Dimension(120, 30));
 	    
 	    JComboBox<String> subjectComboBox = new JComboBox<>();
-	    subjectComboBox.setMaximumSize(new Dimension(250, 30));
+	    subjectComboBox.setPreferredSize(new Dimension(200, 30));
 	    updateSubjectComboBox(subjectComboBox);
 	    
 //	    JTextField subjectField = new JTextField();
-	    subjectPanel.add(subjectLabel, BorderLayout.WEST);
-	    subjectPanel.add(subjectComboBox, BorderLayout.CENTER);
+	    subjectPanel.add(subjectLabel);
+	    subjectPanel.add(subjectComboBox);
 	    
 //	    >> >> Subject selection
 	    
 	    
 // 		<< << Grade input
-	    JPanel gradePanel = new JPanel(new BorderLayout(10, 5));
+	    JPanel gradePanel = new JPanel();
 	    gradePanel.setBackground(null);
 	    JLabel gradeLabel = new JLabel("Grade (0-100):");
 	    gradeLabel.setPreferredSize(new Dimension(120, 30));
 	    JTextField gradeField = new JTextField();
 	    gradeField.setFont(new Font("Serif", Font.BOLD, 16));
-	    gradeField.setPreferredSize(new Dimension(100,20));
-	    gradePanel.add(gradeLabel, BorderLayout.WEST);
-	    gradePanel.add(gradeField, BorderLayout.CENTER);
+	    gradeField.setPreferredSize(new Dimension(200,20));
+	    gradePanel.add(gradeLabel);
+	    gradePanel.add(gradeField);
 //	    >> >> Grade input
 
 //   	<< << Buttons
@@ -983,6 +1009,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	        cardLayout.show(cardPanel, "MainManu");
 	    });
 
+	    gradesPanel.setPreferredSize(new Dimension(300,300));
 	    return gradesPanel;
 	}
 	
@@ -1354,12 +1381,29 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    header.setForeground(Color.BLACK);
 	    
 	    // Center align numeric columns
-	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+//	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+//	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 	    
-	    for (int i = 4; i <= 7; i++) { // Grade columns and average
-	        table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-	    }
+//	    for (int i = 4; i <= 7; i++) { // Grade columns and average
+//	        table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//	    }
+	    
+	    
+	    
+	 // Apply column renderers
+	    DefaultTableCellRenderer centerRenderer = createRenderer(JLabel.CENTER, new Font("SansSerif", Font.BOLD, 12));
+	    DefaultTableCellRenderer leftRenderer = createRenderer(JLabel.LEFT, new Font("SansSerif", Font.PLAIN, 12));
+	    
+	    table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer); // ID
+	    table.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);   // First Name
+	    table.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);   // Last Name
+	    table.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);   // Email
+	    table.getColumnModel().getColumn(4).setCellRenderer(createGradeRenderer());  // Math
+	    table.getColumnModel().getColumn(5).setCellRenderer(createGradeRenderer());  // JAVA Programming
+	    table.getColumnModel().getColumn(6).setCellRenderer(createGradeRenderer());  // English
+	    table.getColumnModel().getColumn(7).setCellRenderer(createAverageRenderer()); // Average
+	    
+	    
 	    
 	    // Set column widths
 	    table.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
@@ -1372,6 +1416,31 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    table.getColumnModel().getColumn(7).setPreferredWidth(80);  // Average
 	    
 	    return table;
+	}
+	
+	// Basic renderer with alignment and font
+	private DefaultTableCellRenderer createRenderer(int alignment, Font font) {
+	    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	    renderer.setHorizontalAlignment(alignment);
+	    renderer.setFont(font);
+	    return renderer;
+	}
+
+	// Grade column renderer
+	private DefaultTableCellRenderer createGradeRenderer() {
+	    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	    renderer.setHorizontalAlignment(JLabel.CENTER);
+	    renderer.setFont(new Font("SansSerif", Font.BOLD, 12));
+	    return renderer;
+	}
+
+	// Average column renderer  
+	private DefaultTableCellRenderer createAverageRenderer() {
+	    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	    renderer.setHorizontalAlignment(JLabel.CENTER);
+	    renderer.setFont(new Font("SansSerif", Font.BOLD, 12));
+	    renderer.setBackground(new Color(240, 240, 255)); // Light blue background
+	    return renderer;
 	}
 	
 		
@@ -1390,7 +1459,7 @@ public class MainJFrame extends JFrame implements ActionListener {
                 student.getAverage()
             })
             .toArray(Object[][]::new);
-}
+	}
 		
 	/////////////////// 4. statstics info panel
 	private JPanel createStatisticsInfoPanel() 
@@ -1451,15 +1520,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    
 	    return stats.getCount() > 0 ? stats.getAverage() : 0.0;
 	}
-	
-	
-		
-	/////////////////// 6. refresh
-	
-	
-	
-	/////////////////// 7.
-	
+
 	
 	
 	 
