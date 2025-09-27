@@ -174,13 +174,19 @@ public class MainJFrame extends JFrame implements ActionListener {
 		
 //		<< <<  create JPanel : manuSubPanel
 		JPanel manuSubPanel = getMainManuPanel();
-		cardPanel.add(manuSubPanel, "MainManu");
+		JPanel manuContainer = new JPanel();
+		manuContainer.setPreferredSize(new Dimension(500,500));
+		manuContainer.add(manuSubPanel);
+		cardPanel.add(manuContainer, "MainManu");
 //		>> >>  add JPanel : manuSubPanel
 		
 		
 //		<< << << create JPanel : manageStdPanel
 		JPanel manageStdPanel = getStudentManu();
-		cardPanel.add(manageStdPanel, "ManageStudentManu");
+		JPanel studentContainer = new JPanel();
+		studentContainer.setPreferredSize(new Dimension(500,500));
+		studentContainer.add(manageStdPanel);
+		cardPanel.add(studentContainer, "ManageStudentManu");
 //		>> >> >> add JPanel : manageStdPanel
 		
 //		<< << << create JPanel : addStdPanel
@@ -248,11 +254,11 @@ public class MainJFrame extends JFrame implements ActionListener {
 	public void removeMarginBtn(JButton btn, ImageIcon icon) 
 	{
 		btn.setBackground(SystemColor.inactiveCaptionBorder);
-		btn.setMargin(new Insets(0,0,0,0));
-		btn.setBorder(null);
+//		btn.setMargin(new Insets(10,10,10,10));
+		btn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 		btn.setBorderPainted(false);
 		if (icon != null) {
-	        btn.setPreferredSize(new Dimension(icon.getIconWidth()+100, icon.getIconHeight()+30));
+	        btn.setPreferredSize(new Dimension(200,150));
 	    }
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
@@ -267,11 +273,12 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		JPanel manuSubPanel = new JPanel();
 		manuSubPanel.setBackground(null);
-		manuSubPanel.setLayout(new GridLayout(2,2,20,20));
+		manuSubPanel.setLayout(new GridLayout(2,2,0,0));
 		
 		
 		ImageIcon icon1 = getResizedIcon("icons/manage_std.png");
 		JButton manageStdBtn = new JButton(icon1);
+		manageStdBtn.setPreferredSize(new Dimension(300,100));
 		removeMarginBtn(manageStdBtn,icon1);
 		manageStdBtn.addActionListener(event->{
 			cardLayout.show(cardPanel, "ManageStudentManu");
@@ -280,6 +287,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JPanel manageStdPanel = new JPanel();
 		manageStdPanel.setLayout(new BoxLayout(manageStdPanel, BoxLayout.Y_AXIS));
 		manageStdPanel.add(manageStdBtn);
+		manageStdPanel.add(Box.createVerticalStrut(10));
 		manageStdPanel.add(manageStdFieald);
 		
 		
@@ -294,6 +302,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JPanel searchStdPanel = new JPanel();
 		searchStdPanel.setLayout(new BoxLayout(searchStdPanel, BoxLayout.Y_AXIS));
 		searchStdPanel.add(searchStdBtn);
+		searchStdPanel.add(Box.createVerticalStrut(10));
 		searchStdPanel.add(searchStdFieald);
 		
 		ImageIcon icon3 = getResizedIcon("icons/manage_grades.png");
@@ -306,6 +315,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JPanel manageGradesPanel = new JPanel();
 		manageGradesPanel.setLayout(new BoxLayout(manageGradesPanel, BoxLayout.Y_AXIS));
 		manageGradesPanel.add(manageGradesBtn);
+		manageGradesPanel.add(Box.createVerticalStrut(10));
 		manageGradesPanel.add(manageGradesFieald);
 		
 		ImageIcon icon4 = getResizedIcon("icons/statistic.png");
@@ -318,6 +328,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 		JPanel statisticPanel = new JPanel();
 		statisticPanel.setLayout(new BoxLayout(statisticPanel, BoxLayout.Y_AXIS));
 		statisticPanel.add(statisticBtn);
+		statisticPanel.add(Box.createVerticalStrut(10));
 		statisticPanel.add(statisticFieald);
 		
 		
@@ -333,7 +344,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
 		JPanel manageStdPanel = new JPanel();
 		manageStdPanel.setBackground(null);
-		manageStdPanel.setLayout(new GridLayout(2,2,20,20));
+		manageStdPanel.setLayout(new GridLayout(2,2,0,0));
 		
 		
 		ImageIcon icon1_1 = getResizedIcon("icons/add_std.png");
@@ -342,37 +353,61 @@ public class MainJFrame extends JFrame implements ActionListener {
 		addStdBtn.addActionListener(e->{
 				cardLayout.show(cardPanel, "AddStudentPanel");
 		});
+		JLabel addStdFieald = new JLabel("Add student");
+		JPanel addStdPanel = new JPanel();
+		addStdPanel.setLayout(new BoxLayout(addStdPanel, BoxLayout.Y_AXIS));
+		addStdPanel.add(addStdBtn);
+		addStdPanel.add(Box.createVerticalStrut(10));
+		addStdPanel.add(addStdFieald);
+		
+		
 		
 		ImageIcon icon1_2 = getResizedIcon("icons/modify_std.png");
 		JButton modefyStdBtn = new JButton(icon1_2);
 		removeMarginBtn(modefyStdBtn,icon1_2);
 		modefyStdBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "ModifyStudentPanel");
-	});
-//		ModifyStudentPanel
+		});
+		JLabel modefyStdBtnFieald = new JLabel("Modify student");
+		JPanel modefyStdBtnPanel = new JPanel();
+		modefyStdBtnPanel.setLayout(new BoxLayout(modefyStdBtnPanel, BoxLayout.Y_AXIS));
+		modefyStdBtnPanel.add(modefyStdBtn);
+		modefyStdBtnPanel.add(Box.createVerticalStrut(10));
+		modefyStdBtnPanel.add(modefyStdBtnFieald);
+
 		
 		ImageIcon icon1_3 = getResizedIcon("icons/delete_std.png");
 		JButton deleteStdBtn = new JButton(icon1_3);
 		removeMarginBtn(deleteStdBtn,icon1_3);
 		deleteStdBtn.addActionListener(e->{
 			cardLayout.show(cardPanel, "DeleteStudentPanel");
-
-			
-
-	});
+		});
+		JLabel deleteStdFieald = new JLabel("Modify student");
+		JPanel deleteStdPanel = new JPanel();
+		deleteStdPanel.setLayout(new BoxLayout(deleteStdPanel, BoxLayout.Y_AXIS));
+		deleteStdPanel.add(deleteStdBtn);
+		deleteStdPanel.add(Box.createVerticalStrut(10));
+		deleteStdPanel.add(deleteStdFieald);
 		
 		
-		JButton returnBtn = new JButton("Retrun back");
+		ImageIcon icon1_4 = getResizedIcon("icons/undo.png");
+		JButton returnBtn = new JButton(icon1_4);
+		removeMarginBtn(returnBtn,null);
 		returnBtn.addActionListener(event->{
 			cardLayout.show(cardPanel, "MainManu");
 		});
-		removeMarginBtn(returnBtn,null);
+		JLabel returnFieald = new JLabel("Return back");
+		JPanel returnPanel = new JPanel();
+		returnPanel.setLayout(new BoxLayout(returnPanel, BoxLayout.Y_AXIS));
+		returnPanel.add(returnBtn);
+		returnPanel.add(Box.createVerticalStrut(10));
+		returnPanel.add(returnFieald);
 		
 		
-		manageStdPanel.add(addStdBtn);
-		manageStdPanel.add(modefyStdBtn);
-		manageStdPanel.add(deleteStdBtn);
-		manageStdPanel.add(returnBtn);
+		manageStdPanel.add(addStdPanel);
+		manageStdPanel.add(modefyStdBtnPanel);
+		manageStdPanel.add(deleteStdPanel);
+		manageStdPanel.add(returnPanel);
 		
 		return manageStdPanel;
 	}	
@@ -382,7 +417,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
         JPanel addStdPanel = new JPanel();
         addStdPanel.setBackground(null);
-        addStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
+        addStdPanel.setLayout(new GridLayout(5, 1, 20, 20));
 
         // Article 1
         JPanel article1 = new JPanel();
@@ -391,7 +426,7 @@ public class MainJFrame extends JFrame implements ActionListener {
         JLabel firstNameLabel = new JLabel("First name:");
         firstNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField firstNameField = new JTextField();
-        firstNameField.setPreferredSize(new Dimension(120,30));
+        firstNameField.setPreferredSize(new Dimension(200,30));
         
         firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -401,13 +436,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
         // Article 2
-        JPanel article2 = new JPanel(new BorderLayout(10, 5));
+        JPanel article2 = new JPanel();
         article2.setBackground(null);
 
         JLabel lastNameLabel = new JLabel("Last name:");
         lastNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField lastNameField = new JTextField();
-        lastNameField.setPreferredSize(new Dimension(120,30));
+        lastNameField.setPreferredSize(new Dimension(200,30));
         lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
         article2.add(lastNameLabel, BorderLayout.WEST);
@@ -416,13 +451,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         article2.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
         // Article 3
-        JPanel article3 = new JPanel(new BorderLayout(10, 5));
+        JPanel article3 = new JPanel();
         article3.setBackground(null);
 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setPreferredSize(new Dimension(100, 30));
         JTextField emailField = new JTextField();
-        emailField.setPreferredSize(new Dimension(120,30));
+        emailField.setPreferredSize(new Dimension(200,30));
         emailField.setFont(new Font("Serif", Font.BOLD, 14));
 
         article3.add(emailLabel, BorderLayout.WEST);
@@ -461,7 +496,7 @@ public class MainJFrame extends JFrame implements ActionListener {
                 
                 for(Student std: students) 
                 {
-                	System.out.println(std.getId() + " " +std.getLastName());
+                	System.out.println(std.getId() + " " + std.getFirstName() + " " +std.getLastName());
                 }
         	}
         });
@@ -487,7 +522,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	{
         JPanel modefyStdPanel = new JPanel();
         modefyStdPanel.setBackground(null);
-        modefyStdPanel.setLayout(new GridLayout(5, 1, 20, 0));
+        modefyStdPanel.setLayout(new GridLayout(5, 1, 0, 0));
 
         
         // Article 0
@@ -512,12 +547,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         
         
         // Article 1
-        JPanel article1 = new JPanel(new BorderLayout(10, 5));
+        JPanel article1 = new JPanel();
         article1.setBackground(null);
 
         JLabel firstNameLabel = new JLabel("First name:");
         firstNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField firstNameField = new JTextField();
+        firstNameField.setPreferredSize(new Dimension(200,30));
         
         firstNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -527,12 +563,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         article1.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
         // Article 2
-        JPanel article2 = new JPanel(new BorderLayout(10, 5));
+        JPanel article2 = new JPanel();
         article2.setBackground(null);
 
         JLabel lastNameLabel = new JLabel("Last name:");
         lastNameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField lastNameField = new JTextField();
+        lastNameField.setPreferredSize(new Dimension(200,30));
         
         lastNameField.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -542,12 +579,13 @@ public class MainJFrame extends JFrame implements ActionListener {
         article2.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 
         // Article 3
-        JPanel article3 = new JPanel(new BorderLayout(10, 5));
+        JPanel article3 = new JPanel();
         article3.setBackground(null);
 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setPreferredSize(new Dimension(100, 30));
         JTextField emailField = new JTextField();
+        emailField.setPreferredSize(new Dimension(200,30));
         
         emailField.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -923,7 +961,7 @@ public class MainJFrame extends JFrame implements ActionListener {
 	    gradesPanel.add(titleLabel, BorderLayout.NORTH);
 
 // 		<< Main content panel
-	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, -10, 0));
+	    JPanel contentPanel = new JPanel(new GridLayout(4, 1, 0, 0));
 	    contentPanel.setBackground(null);
 
 	    JPanel boxLayoutPanel = new JPanel();
@@ -1311,7 +1349,8 @@ public class MainJFrame extends JFrame implements ActionListener {
 	/////////////////// 1. Statistics Panel
 	private JPanel getStatsticsPanel() 
 	{
-	    JPanel statsPanel = new JPanel(new BorderLayout(10, 10));
+	    JPanel statsPanel = new JPanel();
+	    statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
 	    statsPanel.setBackground(null);
 
 	    // Title
