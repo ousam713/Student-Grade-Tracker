@@ -20,7 +20,7 @@ public class Student extends JPanel
 	private static int count = 1;
 	private final int id;
 
-	private static String [] subjects = {"Java Programming","Math","English"};
+	private static String [] subjects = {"Java Programming","Mathematics","English"};
 	
 	private float avg;
 	
