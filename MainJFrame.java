@@ -768,7 +768,6 @@ public class MainJFrame extends JFrame implements ActionListener {
         emailField.setEditable(false);
         emailField.setPreferredSize(new Dimension(200, 30));
         
-
         article3.add(emailLabel, BorderLayout.WEST);
         article3.add(emailField, BorderLayout.CENTER);
         article3.add(Box.createVerticalStrut(50), BorderLayout.SOUTH);
