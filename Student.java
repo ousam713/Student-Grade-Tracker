@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JLabel;
@@ -19,36 +20,42 @@ public class Student extends JPanel
 	private static int count = 1;
 	private final int id;
 
-	private String firstName;
-	private String lastName;
-	private String email;
-	private static String [] subjects = {"JAVA Programming","Mathematics","English"};
-	private Map<String , Double>  grades = new HashMap<>();
+	private static String [] subjects = {"Java Programming","Math","English"};
+	
 	private float avg;
 	
+    private String firstName, lastName, email;
+    private Map<String, Double> grades = new HashMap<>();
+    
+    
+    
 	
 	// Static initialization bloc
-	{
-        for (String subject : subjects) 
-        {
-            grades.put(subject, -1.0); // Initialize each grade to -1 <=> the grades are not input yet
-        }
-    }
+//	{
+//        for (String subject : subjects) 
+//        {
+//            grades.put(subject, -1.0); // Initialize each grade to -1 <=> the grades are not input yet
+//        }
+//    }
 	
 	// Constructor
-	public Student(String firstName,String lastName)
-	{
-		this.id = count;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		count++;
-	}
 	public Student(String firstName,String lastName,String email)
 	{
 		this.id = count;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		count++;
+	}
+	public Student(String firstName,String lastName,String email,double grade1, double grade2, double grade3)
+	{
+		this.id = count;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.grades.put("Mathematics", grade1);
+		this.grades.put("Java Programming", grade2);
+		this.grades.put("English", grade3);
 		count++;
 	}
 	
@@ -138,9 +145,10 @@ public class Student extends JPanel
     
     public double getAverage() 
     {
-        if (grades.isEmpty()) return 0.0;
-        double sum = grades.values().stream().mapToDouble(Double::doubleValue).sum();
-        return sum / grades.size();
+    	if (grades.isEmpty()) return 0.0;
+    	double sum = grades.values().stream().mapToDouble(Double::doubleValue).sum();
+    	double average = sum / grades.size();
+    	return Math.round(average * 100.0) / 100.0;
     }
 	
 }
